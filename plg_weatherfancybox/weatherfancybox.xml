@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" method="upgrade">
+  <name>Wetter Fancybox</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+Bettet Fancybox ein.<br/>
+Verwendung durch class="fancybox" im Link des umgebenden Bildes.<br/>
+Gruppierung von mehreren Bildern durch Angabe derselben "rel" in den Links der Bilder.
+  ]]></description>
+  <namespace path="src">Weather\Plugin\System\FancyBox</namespace>
+  <files>
+    <folder plugin="weatherfancybox">services</folder>
+    <folder>src</folder>
+  </files>
+  <media destination="weatherfancybox" folder="media">
+    <folder>fancybox</folder>
+  </media>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+            name="transition"
+            type="list"
+            default="elastic"
+            label="Transition"
+            description="Ein-/Ausblendanimation">
+          <option value="elastic">Elastic</option>
+          <option value="fade">Fade</option>
+          <option value="none">None</option>
+        </field>
+        <field
+            name="padding"
+            type="text"
+            default="10"
+            label="Rahmen Innenabstand"
+            description="Innenabstand des Fancybox Rahmens zum Inhalt (Padding)"/>
+        <field
+            name="margin"
+            type="text"
+            default="30"
+            label="Rahmen Außenabstand"
+            description="Außenabstand des Fancybox Rahmens zur Seite (Margin)"/>
+        <field
+            name="autoScale"
+            type="radio"
+            default="1"
+            label="Autoskalierung"
+            description="Soll das in Fancybox vergrößerte Bild automatisch auf den aktuellen Browserausschnitt skaliert werden?">
+          <option value="0">Aus</option>
+          <option value="1">Ein</option>
+        </field>
+        <field
+            name="cyclic"
+            type="radio"
+            default="0"
+            label="Zyklisch"
+            description="Sollen die in Fancybox gruppierten Bilder zyklisch durchblättert werden?">
+          <option value="0">Aus</option>
+          <option value="1">Ein</option>
+        </field>
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Fancybox Update Site">https://joomlaupdate.ahartman.de/plg_weatherfancybox/update.xml</server>
+  </updateservers>
+</extension>

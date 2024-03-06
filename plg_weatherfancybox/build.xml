@@ -1,0 +1,39 @@
+<project name="pkg_weatherfancybox" default="build" basedir=".">
+
+  <property name="version" value="1.0.1"/>
+  <property name="build" location="build"/>
+  <property name="build.plg" location="build/plg_weatherfancybox"/>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp>
+      <format pattern="yyyy-MM-dd" property="creationdate"/>
+    </tstamp>
+    <echo message="Building version ${version} with creation date ${creationdate}."/>
+    <mkdir dir="${build}"/>
+
+    <copy todir="${build.plg}">
+      <fileset dir=".">
+        <exclude name="build.xml"/>
+        <exclude name="update.xml"/>
+        <exclude name=".idea/**"/>
+        <exclude name="build/**"/>
+      </fileset>
+    </copy>
+    <copy todir="${build}" file="update.xml"/>
+  </target>
+
+  <target name="build" depends="init">
+    <replace file="${build.plg}/weatherfancybox.xml" token="@version@" value="${version}"/>
+    <replace file="${build.plg}/weatherfancybox.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build}/plg_weatherfancybox-${version}.zip" basedir="${build.plg}"/>
+
+    <checksum file="${build}/plg_weatherfancybox-${version}.zip" algorithm="sha-256" property="pkgfile.checksum"/>
+    <replace file="${build}/update.xml" token="@checksum@" value="${pkgfile.checksum}"/>
+    <replace file="${build}/update.xml" token="@version@" value="${version}"/>
+  </target>
+
+</project>
