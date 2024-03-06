@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="content" method="upgrade">
+  <name>Wetter Station</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+  Das Plugin ermöglicht den Zugriff auf Werte aus JSON Dateien.<br/>
+  <b>Beispiel Datei:</b><br/>
+  <pre>
+{
+  "Temp2m": "20,0 &deg;C",
+  "Temp2m60min": "+1,6 &deg;C",
+  "icon_tt" : ["0", "1", "5"]
+}
+  </pre>
+  <b>Beispiel Zugriff:</b><br/>
+  <pre>
+{WeatherStation} schaltet die Verarbeitung für den Beitrag an.
+{File wetterstation.json} gibt die zu ladende JSON Datei an.
+{File icon.json} gibt eine weitere zu ladende JSON Datei an.
+Temperatur 2m: %Temp2m%
+Änderung 60 min: %Temp2m60min%
+ICON TT: %icon_tt:0", %icon_tt:1%
+</pre>
+Der Zugriff auf Werte aus einer Liste erfolgt über den Doppelpunkt,
+gefolgt vom Index des Elements.
+  ]]></description>
+  <namespace path="src">Weather\Plugin\Content\WeatherStation</namespace>
+  <files>
+		<folder plugin="weatherstation">services</folder>
+		<folder>src</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+          name="errormsg"
+          type="text"
+          size="80"
+          default="Wetterstation wegen Wartung zur Zeit außer Betrieb!"
+          label="Fehlermeldung"
+          description="Fehlermeldung, wenn keine Daten vorhanden."/>
+        <field
+          name="errorplaceholder"
+          type="text"
+          size="5"
+          default="---"
+          label="Platzhalter Fehler"
+          description="Platzhalter, wenn ein Wert fehlt."/>
+        <field
+          name="file"
+          type="text"
+          size="50"
+          default="../Daten/Davis/json/"
+          label="Daten-Datei"
+          description="Pfad zu den Dateien mit den Messwerten im JSON Format, relativ zum Joomla Wurzelverzeichnis."/>
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Station Update Site">https://joomlaupdate.ahartman.de/plg_weatherstation/update.xml</server>
+  </updateservers>
+</extension>
