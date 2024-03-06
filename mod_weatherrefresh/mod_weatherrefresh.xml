@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+  <name>Wetter Site Refresh Module</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description>Wetter Site Refresh Module</description>
+  <files>
+    <filename module="mod_weatherrefresh">mod_weatherrefresh.php</filename>
+    <filename>index.html</filename>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+          name="refreshTime"
+          type="number"
+          size="3"
+          maxlength="2"
+          default="5"
+          label="Refresh Zeit Minuten"
+          filter="integer"
+          min="1"
+          validate="number"/>
+      </fieldset>
+    </fields>
+  </config>
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Site Refresh Update Site">https://joomlaupdate.ahartman.de/mod_weatherrefresh/update.xml</server>
+  </updateservers>
+</extension>
