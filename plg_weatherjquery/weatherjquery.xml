@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" method="upgrade">
+	<name>Wetter jQuery</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+	<description>Bettet jQuery in den Head ein.</description>
+  <namespace path="src">Weather\Plugin\System\JQuery</namespace>
+  <files>
+    <folder plugin="weatherjquery">services</folder>
+    <folder>src</folder>
+  </files>
+  <media destination="weatherjquery" folder="media">
+    <folder>jquery</folder>
+  </media>
+  <updateservers>
+    <server type="extension" priority="1" name="Weather jQuery Update Site">https://joomlaupdate.ahartman.de/plg_weatherjquery/update.xml</server>
+  </updateservers>
+</extension>
