@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+  addrulepath="/administrator/components/com_weatheropendata/models/rules"
+>
+  <fieldset>
+    <field
+      name="id"
+      type="hidden"
+    />
+    <field
+      name="name"
+      type="text"
+      label="COM_WEATHEROPENDATA_PRODUCT_NAME_LABEL"
+      description="COM_WEATHEROPENDATA_PRODUCT_NAME_DESCRIPTION"
+      size="100"
+      class="inputbox"
+      required="true"
+      default=""
+      validate="name"
+      message="COM_WEATHEROPENDATA_PRODUCT_NAME_ERROR"
+    />
+    <field
+      name="protocol"
+      type="radio"
+      default="ftp"
+      label="COM_WEATHEROPENDATA_PRODUCT_PROTOCOL_LABEL"
+      description="COM_WEATHEROPENDATA_PRODUCT_PROTOCOL_DESCRIPTION"
+      class="inputbox"
+    >
+      <option value="ftp">ftp</option>
+      <option value="http">http</option>
+      <option value="https">https</option>
+    </field>
+    <field
+      name="file"
+      type="text"
+      label="COM_WEATHEROPENDATA_PRODUCT_FILE_LABEL"
+      description="COM_WEATHEROPENDATA_PRODUCT_FILE_DESCRIPTION"
+      size="250"
+      class="inputbox"
+      required="true"
+      default=""
+    />
+    <field
+      name="product"
+      type="list"
+      size="1"
+      default="img"
+      label="COM_WEATHEROPENDATA_PRODUCT_PRODUCT_LABEL"
+      description="COM_WEATHEROPENDATA_PRODUCT_PRODUCT_DESCRIPTION"
+      class="inputbox"
+    >
+      <option value="img">COM_WEATHEROPENDATA_PRODUCT_FORMAT_IMG</option>
+      <option value="txt">COM_WEATHEROPENDATA_PRODUCT_FORMAT_TXT</option>
+      <option value="wmo">COM_WEATHEROPENDATA_PRODUCT_FORMAT_WMO</option>
+      <option value="wmo_txt">COM_WEATHEROPENDATA_PRODUCT_FORMAT_WMO_TXT</option>
+      <option value="html">COM_WEATHEROPENDATA_PRODUCT_FORMAT_HTML</option>
+      <option value="fp13">COM_WEATHEROPENDATA_PRODUCT_FORMAT_FP13</option>
+      <option value="fp13_title">COM_WEATHEROPENDATA_PRODUCT_FORMAT_FP13_TITLE</option>
+      <option value="sx31">COM_WEATHEROPENDATA_PRODUCT_FORMAT_SX31</option>
+      <option value="sx33">COM_WEATHEROPENDATA_PRODUCT_FORMAT_SX33</option>
+      <option value="vhdl50_title">COM_WEATHEROPENDATA_PRODUCT_FORMAT_VHDL50_TITLE</option>
+      <option value="vhdl">COM_WEATHEROPENDATA_PRODUCT_FORMAT_VHDL</option>
+    </field>
+    <field
+      name="cache_minutes"
+      type="text"
+      label="COM_WEATHEROPENDATA_PRODUCT_CACHE_LABEL"
+      description="COM_WEATHEROPENDATA_PRODUCT_CACHE_DESCRIPTION"
+      size="15"
+      class="inputbox"
+      required="true"
+      default="5"
+      validate="cache"
+      message="COM_WEATHEROPENDATA_PRODUCT_CACHE_ERROR"
+    />
+  </fieldset>
+</form>

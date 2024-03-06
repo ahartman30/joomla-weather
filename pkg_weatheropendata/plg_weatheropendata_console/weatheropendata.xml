@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="console" method="upgrade">
+  <name>Wetter Opendata Datenzugriff CLI</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+Plugin zum Laden der Daten in den Cache über das Joomla CLI.
+php ./cli/joomla.php weatheropendata:loadcache
+]]></description>
+
+  <namespace path="src">Weather\Plugin\Console\OpenData</namespace>
+
+  <files>
+    <folder plugin="weatheropendata">services</folder>
+    <folder>src</folder>
+  </files>
+
+</extension>

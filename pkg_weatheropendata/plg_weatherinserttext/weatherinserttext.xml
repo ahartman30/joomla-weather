@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+  <name>Wetter Text einfügen</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+  Das Plugin ermöglicht den Zugriff auf Textdateien, um diese in einen Beitrag einzubinden.<br/>
+  Zusätzlich werden alle Sonderzeichen (außer Zeilenumbrüche) nach HTML Entitäten umgewandelt. Endet die
+  Datei auf .html wird der Inhalt direkt als HTML eingebunden. Sonderzeichen werden dann nicht mehr
+  ersetzt.
+  Bsp:
+  <pre>
+{insert_text Unterverzeichnis/Textdatei.txt}
+{insert_text Htmldatei.html}
+  </pre>
+  ]]></description>
+  <namespace path="src">Weather\Plugin\Content\InsertText</namespace>
+  <files>
+    <folder plugin="weatherinserttext">services</folder>
+    <folder>src</folder>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field
+          name="dir"
+          type="text"
+          size="50"
+          default="../Daten"
+          label="Dir"
+          description="Pfad zum Verzeichnis mit den Textdateien, relativ zum Joomla Wurzelverzeichnis."/>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

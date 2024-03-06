@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+  <name>Wetter Opendata Datenzugriff</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+Das Plugin ermöglicht den Zugriff auf Dateien des DWD Opendata oder Bilder aus dem Web über eine Url.<br/>
+Die Produkte und die Optionen werden in der <a href="index.php?option=com_weatheropendata">Wetter DWD Opendata Komponente</a> konfiguriert.
+Die Dateien werden für eine vorgegebene Zeitspanne gecached bevor im Opendata auf eine neuere
+Version geprüft wird. Die Bilder aus dem Web werden ebenfalls gecached und nur ersetzt, wenn das Bild
+aus dem einen anderen Inhalt als das Bild im Cache besitzt.<br/>
+Das Plugin ermöglicht das Darstellen von Bildern und Text. Bei Bildern kann zusätzlich ein
+Vergrößerungs-, Verkleinerungsfaktor angegeben werden und es gibt die Möglichkeit, beim Klick auf das
+Bild, dieses in Originalgröße anzuzeigen.<br/><br/>
+Erlaubte Zeichen im Produktnamen sind Zahlen, Buchstaben und Underline!<br/>
+Alle Bilder, die denselben Text in der Gruppierung besitzen, können in der vergrößerten Ansicht durch Klick oder Mausrad durchgeblättert werden.<br/>
+Fehlermeldungen werden nur angezeigt, wenn ein Benutzer eingeloggt ist.<br/>
+Das Command <i>load</i> baut eine aktive Verbindung zum Opendata auf, um die Datei zu aktualisieren, ohne den Inhalt in den Artikel einzubinden.
+Sinn des load Command ist es, z.B. viele Dateien mit einem einzigen Artikel nur in den Cache zu aktualisieren, ohne diese anzuzeigen und damit zu viel Last
+über den Webserver zu erzeugen. Die Seite kann dann z.B. über den Cron aufgerufen werden.<br/>
+Das Command <i>get</i> baut eine aktive Verbindung zum Opendata auf, um die Datei zu aktualisieren, und bindet diese in die Seite ein.<br/>
+Das Command <i>show</i> bindet nur die aktuellste Datei aus dem Cache ein, ohne eine aktive Verbindung zum Opendata auzubauen.<br/><br/>
+
+<h3>Anwendung:</h3>
+<i>{opendata_[load,get,show] &lt;Produktname&gt;;&lt;[opt] Größe in %&gt;;&lt;[opt] Titel und Vergrößerung bei Klick&gt;;[opt] Gruppierung}</i><br/><br/>
+Bsp.:<br/>
+<i>{opendata_get Webradar_Deutschland_akt;;}</i> (Anzeige Bild in Originalgröße ohne Vergrößerung bei Klick)<br/>
+<i>{opendata_get Euro640_502_heute;50;Bodenvorhersage Europa Heute;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
+<i>{opendata_get Euro640_502_morgen;50;Bodenvorhersage Europa Morgen;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
+<i>{opendata_get FPDL13_DWMZ_0;;}</i> (Anzeige Text)<br/><br/>
+<i>{opendata_load Webradar_Deutschland_akt;;}</i> (Nur Laden des Produktes in den Cache)<br/>
+<i>{opendata_show Webradar_Deutschland_akt;;}</i> (Nur Anzeigen des Produktes aus dem Cache)<br/>
+
+<h3>Cron:<h3/>
+Alle vorhandenen Produkte können mittels der Joomla CLI über die Cron abgerufen werden.
+]]></description>
+  <namespace path="src">Weather\Plugin\Content\OpenData</namespace>
+  <files>
+    <folder plugin="weatheropendata">services</folder>
+    <folder>src</folder>
+  </files>
+</extension>

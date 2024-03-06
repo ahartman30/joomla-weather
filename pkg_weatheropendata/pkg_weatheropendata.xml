@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+  <name>Wetter Opendata Datenzugriff Paket</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <packagename>weatheropendata</packagename>
+  <version>@version@</version>
+  <description><![CDATA[
+<h3>Wetter Opendata Datenzugriff</h3>
+Das Paket besteht aus den folgenden Erweiterungen:
+<ul>
+  <li>Komponente zur Konfiguration der Opendata Produkte, die eingebunden werden sollen.</li>
+  <li>Content Plugin zum Einbinden der Opendata Inhalte in einen Beitrag.</li>
+  <li>Console Plugin zum Laden der Produkte in den Cache über die Kommandozeile und Cron.</li>
+  <li>Plugin zum Einfügen von lokal verfügbaren Text und HTML Dateien in einen Beitrag.</li>
+</ul>
+]]></description>
+  <blockChildUninstall>true</blockChildUninstall>
+
+  <files>
+    <file type="component" id="com_weatheropendata">com_weatheropendata.zip</file>
+    <file type="plugin" group="content" id="weatheropendata">plg_weatheropendata_content.zip</file>
+    <file type="plugin" group="console" id="weatheropendata">plg_weatheropendata_console.zip</file>
+    <file type="plugin" group="content" id="weatherinserttext">plg_weatherinserttext.zip</file>
+  </files>
+
+  <scriptfile>script.weatheropendata.php</scriptfile>
+
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Opendata Update Site">https://joomlaupdate.ahartman.de/pkg_weatheropendata/update.xml</server>
+  </updateservers>
+</extension>

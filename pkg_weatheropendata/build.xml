@@ -1,0 +1,61 @@
+<project name="pkg_weatheropendata" default="build" basedir=".">
+
+  <property name="version" value="1.0.2"/>
+  <property name="build" location="build"/>
+  <property name="build.pkg" location="build/pkg_weatheropendata"/>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp>
+      <format pattern="yyyy-MM-dd" property="creationdate"/>
+    </tstamp>
+    <echo message="Building version ${version} with creation date ${creationdate}."/>
+    <mkdir dir="${build}"/>
+
+    <copy todir="${build}/pkg_weatheropendata">
+      <fileset dir=".">
+        <exclude name="build.xml"/>
+        <exclude name="update.xml"/>
+        <exclude name=".idea/**"/>
+        <exclude name="build/**"/>
+      </fileset>
+    </copy>
+    <copy todir="${build}" file="update.xml"/>
+  </target>
+
+  <target name="build" depends="init">
+    <replace file="${build.pkg}/com_weatheropendata/weatheropendata.xml" token="@version@" value="${version}"/>
+    <replace file="${build.pkg}/com_weatheropendata/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build.pkg}/com_weatheropendata.zip" basedir="${build.pkg}/com_weatheropendata"/>
+
+    <replace file="${build.pkg}/plg_weatheropendata_content/weatheropendata.xml" token="@version@" value="${version}"/>
+    <replace file="${build.pkg}/plg_weatheropendata_content/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build.pkg}/plg_weatheropendata_content.zip" basedir="${build.pkg}/plg_weatheropendata_content"/>
+
+    <replace file="${build.pkg}/plg_weatheropendata_console/weatheropendata.xml" token="@version@" value="${version}"/>
+    <replace file="${build.pkg}/plg_weatheropendata_console/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build.pkg}/plg_weatheropendata_console.zip" basedir="${build.pkg}/plg_weatheropendata_console"/>
+
+    <replace file="${build.pkg}/plg_weatherinserttext/weatherinserttext.xml" token="@version@" value="${version}"/>
+    <replace file="${build.pkg}/plg_weatherinserttext/weatherinserttext.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build.pkg}/plg_weatherinserttext.zip" basedir="${build.pkg}/plg_weatherinserttext"/>
+
+    <replace file="${build.pkg}/pkg_weatheropendata.xml" token="@version@" value="${version}"/>
+    <replace file="${build.pkg}/pkg_weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
+    <zip destfile="${build}/pkg_weatheropendata-${version}.zip">
+      <fileset dir="${build.pkg}">
+        <include name="*.zip"/>
+        <include name="script.weatheropendata.php"/>
+        <include name="pkg_weatheropendata.xml"/>
+      </fileset>
+    </zip>
+
+    <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-256" property="pkgfile.checksum"/>
+    <replace file="${build}/update.xml" token="@checksum@" value="${pkgfile.checksum}"/>
+    <replace file="${build}/update.xml" token="@version@" value="${version}"/>
+  </target>
+
+</project>

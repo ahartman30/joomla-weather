@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updates>
+	<update>
+		<name>Wetter Opendata</name>
+		<element>pkg_weatheropendata</element>
+		<type>package</type>
+		<version>@version@</version>
+		<infourl title="Wetter Opendata">https://www.heusenstamm-wetter.de</infourl>
+		<maintainer>Alexander Hartmann</maintainer>
+		<maintainerurl>https://github.com/ahartman30</maintainerurl>
+		<targetplatform name="joomla" version="((4\.(3|4|5))|(5\.(0|1|2|3|4|5|6|7|8|9)))"/>
+		<client>site</client>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<downloads>
+			<downloadurl type="full" format="zip">https://joomlaupdate.ahartman.de/pkg_weatheropendata/pkg_weatheropendata-@version@.zip</downloadurl>
+		</downloads>
+		<sha256>@checksum@</sha256>
+		<php_minimum>8.2</php_minimum>
+	</update>
+</updates>

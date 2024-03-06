@@ -1,0 +1,29 @@
+Wa,W a,Wa,W a|Westlage, Mitteleuropa überwiegend antizyklonal
+Wz,W z,Wz,W z|Westlage, Mitteleuropa überwiegend zyklonal
+WS,W S,Ws,W s|Südliche Westlage
+WW,W W,Ww,W w|Winkelförmige Westlage
+SWa,SW a,SWa|Südwestlage, Mitteleuropa überwiegend antizyklonal
+SWz,SW z,SWz|Südwestlage, Mitteleuropa überwiegend zyklonal
+NWa,NW a,NWa|Nordwestlage, Mitteleuropa überwiegend antizyklonal
+NWz,NW z,NWz|Nordwestlage, Mitteleuropa überwiegend zyklonal
+HM,H M|Hoch Mitteleuropa
+BM,B M|Hochdruckbrücke Mitteleuropa
+TM,T M|Tief Mitteleuropa
+Na,N a,Na|Nordlage, Mitteleuropa überwiegend antizyklonal
+Nz,N z,Nz|Nordlage, Mitteleuropa überwiegend zyklonal
+HNa,HN a,HNa|Hoch Nordmeer-Island, Mitteleuropa überwiegend antizyklonal
+HNz,HN z,HNz|Hoch Nordmeer-Island, Mitteleuropa überwiegend zyklonal
+HB,H B|Hoch Britische Inseln
+TrM,Tr M|Trog Mitteleuropa
+NEa,NE a,NEa|Nordostlage, Mitteleuropa überwiegend antizyklonal
+NEz,NE z,NEz|Nordostlage, Mitteleuropa überwiegend zyklonal
+HFa,HF a,HFa|Hoch Fennoskandien, Mitteleuropa überwiegend antizyklonal
+HFz,HF z,HFz|Hoch Fennoskandien, Mitteleuropa überwiegend zyklonal
+HNFa,HNF a,HNFa|Hoch Nordmeer-Fennoskandien, Mitteleuropa überwiegend antizyklonal
+HNFz,HNF z,HNFz|Hoch Nordmeer-Fennoskandien, Mitteleuropa überwiegend zyklonal
+SEa,SE a,SEa|Südostlage, Mitteleuropa überwiegend antizyklonal
+SEz,SE z,SEz|Südostlage, Mitteleuropa überwiegend zyklonal
+Sa,S a,Sa|Südlage, Mitteleuropa überwiegend antizyklonal
+Sz,S z,Sz|Südlage, Mitteleuropa überwiegend zyklonal
+TB,T B|Tief Britische Inseln
+TrW,Tr W,TRw,Tr w|Trog Westeuropa
