@@ -1,0 +1,95 @@
+<div id="%id%" style="width: %width%; height: %height%;z-index: 0">
+  <script>
+    var endDate = new Date();
+    endDate.setUTCMinutes(0, 0, 0);
+    var hour = Math.floor(endDate.getUTCHours() / 3) * 3;
+    endDate.setUTCHours(hour);
+
+    var weatherMap = L.map('%id%', {
+      center: [%lat%, %lon%],
+      zoom: %zoom%,
+      maxZoom: %zoom_max%,
+      minZoom: %zoom_min%,
+      zoomControl: true,
+      dragging: true,
+      attributionControl: false,
+      boxZoom: false,
+      //maxBounds: [%bounds%],
+      fullscreenControl: %fullscreen%,
+      timeDimension: true,
+      timeDimensionControl: true,
+      timeDimensionOptions:{
+          timeInterval: "PT30H/" + endDate.toISOString(),
+          period: "PT3H",
+          currentTime: endDate
+      },
+      timeDimensionControlOptions: {
+          autoPlay: false,
+          minSpeed: 1,
+          speedStep: 1,
+          playerOptions: {
+              buffer: 10,
+              transitionTime: 250,
+              loop: true
+          }
+      }
+    });
+    var osmLayer =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Karte: &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    });
+    var topoLayer =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: 'Karte: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors',
+      maxZoom: 18
+    });
+    var blueMarbleLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:bluemarble',
+      format: 'image/png',
+      attribution: 'Blue Marble: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var satEuLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:Satellite_meteosat_1km_euat_rgb_day_hrv_and_night_ir108_3h',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Satellit: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var timeSatEuLayer = L.timeDimension.layer.wms(satEuLayer, {
+        proxy: '/media/weathermap/leaflet/plugins/timedimension/proxy.php',
+        updateTimeDimension: false,
+        wmsVersion: '1.3.0'
+    });
+    var satWeltLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:Satellite_worldmosaic_3km_world_ir108_3h',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Satellit: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var timeSatWeltLayer = L.timeDimension.layer.wms(satWeltLayer, {
+        proxy: '/media/weathermap/leaflet/plugins/timedimension/proxy.php',
+        updateTimeDimension: false,
+        wmsVersion: '1.3.0'
+    });
+
+    var baseLayers = {
+      "<span>Topographiekarte</span>": topoLayer.addTo(weatherMap),
+      "<span>Straßenkarte</span>": osmLayer,
+      "<span>Blue Marble</span>": blueMarbleLayer
+    };
+    var overlays = {
+      "<span title='Satellit Welt'>Satellit Welt</span>": timeSatWeltLayer.addTo(weatherMap),
+      "<span title='Satellit Europa'>Satellit Europa</span>": timeSatEuLayer.addTo(weatherMap)
+    };
+    L.control.layers(baseLayers, overlays, {collapsed: true}).addTo(weatherMap);
+    L.control.scale({imperial: false}).addTo(weatherMap);
+    L.control.attribution({prefix: false}).addTo(weatherMap);
+    var loadingControl = L.Control.loading({
+      separate: true,
+      delayIndicator: 500
+    });
+    weatherMap.addControl(loadingControl);
+    weatherMap.timeDimensionControl._toggleDateUTC();
+    L.marker([%lat%, %lon%]).addTo(weatherMap);
+  </script>
+</div>

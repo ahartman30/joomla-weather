@@ -1,0 +1,99 @@
+<div id="%id%" style="width: %width%; height: %height%;z-index: 0">
+  <script>
+    var weatherMap = L.map('%id%', {
+      center: [%lat%, %lon%],
+      zoom: %zoom%,
+      maxZoom: %zoom_max%,
+      minZoom: %zoom_min%,
+      zoomControl: true,
+      dragging: true,
+      attributionControl: false,
+      boxZoom: false,
+      maxBounds: [%bounds%],
+      fullscreenControl: %fullscreen%
+    });
+    var osmLayer =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Karte: &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    });
+    var topoLayer =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: 'Karte: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors',
+      maxZoom: 18
+    });
+    var blueMarbleLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:bluemarble',
+      format: 'image/png',
+      attribution: 'Blue Marble: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var warnLayer = L.tileLayer.warningMapWms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:Warnungen_Gemeinden_vereinigt',
+      format: 'image/png',
+      transparent: true,
+      opacity: 0.6,
+      attribution: 'Warnungen: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var radarLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:RX-Produkt',
+      format: 'image/png',
+      transparent: true,
+      opacity: 0.6,
+      attribution: 'Radar: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var rr1Layer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:RBSN_RR',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Niederschlag: &copy; <a href="https://www.dwd.de">DWD</a>',
+      FEATURE_COUNT : 500
+    });
+    var t2mLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:RBSN_T2m',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Temperatur: &copy; <a href="https://www.dwd.de">DWD</a>',
+      FEATURE_COUNT : 500
+    });
+    var windLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:RBSN_FF',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Wind: &copy; <a href="https://www.dwd.de">DWD</a>',
+      FEATURE_COUNT : 500
+    });
+    var satLayer = L.tileLayer.wms("https://maps.dwd.de/geoserver/dwd/wms/", {
+      layers: 'dwd:Satellite_meteosat_1km_euat_rgb_day_hrv_and_night_ir108_3h',
+      format: 'image/png',
+      transparent: true,
+      opacity: 1.0,
+      attribution: 'Satellit: &copy; <a href="https://www.dwd.de">DWD</a>'
+    });
+    var baseLayers = {
+      "<span>Topographiekarte</span>": topoLayer,
+      "<span>Straßenkarte</span>": osmLayer.addTo(weatherMap),
+      "<span>Blue Marble</span>": blueMarbleLayer
+    };
+    var overlays = {
+      "<span title='Satellitenbild'>Sat-Bild</span>": satLayer,
+      "<span title='Wetterwarnungen'>Warnungen</span>": warnLayer.addTo(weatherMap),
+      "<span title='Regenradar'>Regenradar</span>": radarLayer,
+      "<span title='Niederschlag'>Niederschlag</span>": rr1Layer,
+      "<span title='Temperatur 2 Meter'>Temperatur</span>": t2mLayer.addTo(weatherMap),
+      "<span title='Wind'>Wind</span>": windLayer
+    };
+    L.control.layers(baseLayers, overlays, {collapsed: true}).addTo(weatherMap);
+    L.control.scale({imperial: false}).addTo(weatherMap);
+    L.control.attribution({prefix: false}).addTo(weatherMap);
+    var loadingControl = L.Control.loading({
+      separate: true,
+      delayIndicator: 500
+    });
+    weatherMap.addControl(loadingControl);
+
+    var marker = L.marker([%lat%, %lon%]).addTo(weatherMap);
+    var text = "%popuptext%";
+    if (text) marker.bindPopup(text).openPopup();
+  </script>
+</div>

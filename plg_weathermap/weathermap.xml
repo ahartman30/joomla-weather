@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+  <name>Wetter Karte Geoserver</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+<h3>Anwendung:</h3>
+<pre>
+{wetterkarte
+  template=warnkarte;
+  id=warnkarte;
+  width=450px;height=600px;
+  lat=50.04938;lon=8.79026;
+  zoom=7;zoom_max=12;zoom_min=5;
+  bounds=[47.1408,4.7043],[55.4381,15.2951];
+  fullscreen=true;
+  popuptext=&lt;b&gt;Wetterstation&lt;/b&gt;&lt;br&gt;Heusenstamm
+}
+</pre>
+Alle Angaben für die Eigenschaften sind optional. Ansonsten werden Default-Werte verwendet.
+In der vorlage befinden sich innerhalb von zwei Prozentzeichen Platzhalter (z.B. %id%), welche beim Seitenaufruf durch die Angaben im Plugin ersetzt werden.
+Wird kein "popuptext" angegeben, ist das Popup ausgeblendet.
+  ]]></description>
+  <namespace path="src">Weather\Plugin\Content\WeatherMap</namespace>
+  <files>
+    <folder plugin="weathermap">services</folder>
+    <folder>src</folder>
+  </files>
+  <media destination="weathermap" folder="media">
+    <folder>leaflet</folder>
+    <filename>index.html</filename>
+    <filename>leaflet-warningmap-wms.js</filename>
+    <filename>radar-welt.html</filename>
+    <filename>radarfilm.html</filename>
+    <filename>radarfilm_usa.html</filename>
+    <filename>satfilm.html</filename>
+    <filename>wettermodul.html</filename>
+  </media>
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Map Update Site">https://joomlaupdate.ahartman.de/plg_weathermap/update.xml</server>
+  </updateservers>
+</extension>
