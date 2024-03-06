@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+  <name>Wetter Chart</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <version>@version@</version>
+  <description><![CDATA[
+Benötigt Fancybox Plugin.<br/>
+Die Charts werden in der <a href="index.php?option=com_chart">Chart Komponente</a> konfiguriert.
+Ein Chart kann direkt in die Seite eingebunden werden oder optional über einen Link.
+Beim Klick auf den Link wird der Chart in der Fancybox angezeigt. Für den Link
+kann ein Text oder ein Bild angegeben werden. Das Bild muss sich im
+media-Verzeichnis des Plugin befinden (media/WeatherChart).<p/>
+<h3>Plugin:</h3>
+<pre>
+{WeatherChart &lt;Name Chart&gt;;;&lt;Breite&gt;;&lt;Höhe&gt;[;&lt;Bild oder Link Text&gt;]}
+</pre>
+<h3>Beispiele:</h3>
+<pre>
+{WeatherChart Multi_Test;600;300} Einbinden direkt auf der Seite.
+{WeatherChart Multi_Test;600;300;Test.png} Einbinden über verlinktes Bild (jpg, png, gif).
+{WeatherChart Multi_Test;600;300;Angezeigter Linktext} Einbinden über Link mit Text.
+</pre>
+Der Link erhält die ID 'chart_&lt;Name Template&gt;_&lt;Name Datendatei&gt;_link'.
+Über diese ID kann der Link im Stylesheet zusätzlich formatiert werden.
+  ]]></description>
+  <namespace path="src">Weather\Plugin\Content\WeatherChart</namespace>
+  <scriptfile>script.php</scriptfile>
+  <files>
+		<folder plugin="weatherchart">services</folder>
+		<folder>src</folder>
+  </files>
+</extension>

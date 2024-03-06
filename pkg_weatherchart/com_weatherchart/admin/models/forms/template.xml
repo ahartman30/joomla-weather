@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+  addrulepath="/administrator/components/com_weatherchart/models/rules"
+>
+  <fieldset>
+    <field
+      name="id"
+      type="hidden"
+    />
+    <field
+      name="timestamp"
+      type="hidden"
+    />
+    <field
+      name="name"
+      type="text"
+      label="COM_WEATHERCHART_TEMPLATE_NAME_LABEL"
+      description="COM_WEATHERCHART_TEMPLATE_NAME_DESCRIPION"
+      size="40"
+      class="inputbox"
+      required="true"
+      default=""
+      validate="name"
+      message="COM_WEATHERCHART_TEMPLATE_NAME_ERROR"
+    />
+    <field
+      name="file"
+      type="filelist"
+      label="COM_WEATHERCHART_TEMPLATE_FILE_LABEL"
+      description="COM_WEATHERCHART_TEMPLATE_FILE_DESCRIPION"
+      class="inputbox"
+      required="true"
+      hide_none="true"
+      hide_default="true"
+      filter=".*\.json"
+      stripext="true"
+      message="COM_WEATHERCHART_TEMPLATE_FILE_ERROR"
+    />
+    <field
+      name="template"
+      type="editor"
+      label="COM_WEATHERCHART_TEMPLATE_EDITOR_LABEL"
+      editor="codemirror"
+      buttons="false"
+      height="600px"
+      width="80%"
+      filter="raw"
+      syntax="js"
+    />
+  </fieldset>
+</form>

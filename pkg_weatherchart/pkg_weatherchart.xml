@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+  <name>Wetter Chart Paket</name>
+  <author>Alexander Hartmann</author>
+  <authorUrl>https://www.github.com/ahartman30</authorUrl>
+  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <license>GNU GPL v3 or later</license>
+  <creationDate>@creationdate@</creationDate>
+  <packagename>weatherchart</packagename>
+  <version>@version@</version>
+  <description><![CDATA[
+<h3>Wetter Chart</h3>
+Das Paket besteht aus den folgenden Erweiterungen:
+<ul>
+  <li>Komponente zur Konfiguration der Charts, die eingebunden werden sollen.</li>
+  <li>Content Plugin zum Einbinden der Charts in einen Beitrag.</li>
+</ul>
+]]></description>
+  <blockChildUninstall>true</blockChildUninstall>
+
+  <files>
+    <file type="component" id="com_weatherchart">com_weatherchart.zip</file>
+    <file type="plugin" group="content" id="weatherchart">plg_weatherchart.zip</file>
+  </files>
+
+  <scriptfile>script.weatherchart.php</scriptfile>
+
+  <updateservers>
+    <server type="extension" priority="1" name="Weather Chart Update Site">https://joomlaupdate.ahartman.de/pkg_weatherchart/update.xml</server>
+  </updateservers>
+</extension>

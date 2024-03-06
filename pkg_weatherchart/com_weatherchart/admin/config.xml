@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <fieldset
+    name="settings"
+    label="COM_WEATHERCHART_SETTINGS_LABEL"
+    description="COM_WEATHERCHART_SETTINGS_DESCRIPTION"
+  >
+    <field
+      name="datapath"
+      type="text"
+      label="COM_WEATHERCHART_SETTINGS_DATAPATH_LABEL"
+      description="COM_WEATHERCHART_SETTINGS_DATAPATH_DESCRIPTION"
+      size="100"
+      class="inputbox"
+      required="true"
+      default="./media/weatherchart/json"
+    />
+    <field
+        name="themeVersion"
+        type="text"
+        size="5"
+        default="2"
+        label="COM_WEATHERCHART_SETTINGS_THEMEVERSION_LABEL"
+        description="COM_WEATHERCHART_SETTINGS_THEMEVERSION_DESCRIPTION"/>
+  </fieldset>
+</config>
