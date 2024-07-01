@@ -95,7 +95,7 @@ class DataLoader {
   }
 
   /**
-   * Gets a cahced files for the given product.
+   * Gets a cached file for the given product.
    *
    * @param   string  $product  The product to load.
    *

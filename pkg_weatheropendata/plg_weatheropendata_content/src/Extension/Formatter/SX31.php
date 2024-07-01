@@ -11,9 +11,18 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SX31 implements Formatter {
 
+  private array $gwlDictionary;
+
+  public function __construct()
+  {
+    $this->gwlDictionary = $this->loadGwlDictionary();
+  }
+
   public function format(string $text): string {
     $paragraphs = preg_split("/\\s*\\r\\n(\\s*\\r\\n)+/", mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1'));
 
+    /* Remove head lines */
+    array_shift($paragraphs);
     $head         = array_shift($paragraphs);
     $headLineDate = explode("\r\n", $head);
     $headLineDate = array_pop($headLineDate);
@@ -46,11 +55,9 @@ class SX31 implements Formatter {
       $cleaned .= "</p>";
 
       /* Process GWL */
-      if (str_contains($cleaned, "GWL ")) {
-        $dictionary = $this->getGwlDictionary();
-        foreach ($dictionary as $gwlSymbol => $text) {
-          $cleaned = preg_replace('/\b' . $gwlSymbol . '\b/', '<abbr title="' . $text . '">' . $gwlSymbol . '</abbr>', $cleaned);
-        }
+      foreach ($this->gwlDictionary as $gwlSymbol => $gwlText)
+      {
+        $cleaned = preg_replace('/\b' . $gwlSymbol . '\b/', '<abbr title="' . $gwlText . '">' . $gwlSymbol . '</abbr>', $cleaned);
       }
 
       $result .= $cleaned;
@@ -59,8 +66,8 @@ class SX31 implements Formatter {
     return $result;
   }
 
-  private function getGwlDictionary(): array {
-    $lines      = file(JPATH_PLUGINS . "/content/weatheropendata/src/Extension/formatter/GWL.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+  private function loadGwlDictionary(): array {
+    $lines      = file(JPATH_PLUGINS . "/content/weatheropendata/src/Extension/Formatter/GWL.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $dictionary = array();
     foreach ($lines as $line) {
       $entry = explode("|", $line);

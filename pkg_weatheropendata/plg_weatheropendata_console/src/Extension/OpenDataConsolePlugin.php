@@ -8,6 +8,7 @@ use Joomla\Application\ApplicationEvents;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Event\SubscriberInterface;
+use Weather\Plugin\Console\OpenData\CliCommand\RunFetchProductCommand;
 use Weather\Plugin\Console\OpenData\CliCommand\RunLoadCacheCommand;
 
 
@@ -22,6 +23,7 @@ class OpenDataConsolePlugin extends CMSPlugin implements SubscriberInterface {
   public function registerCommands(): void {
     $app = Factory::getApplication();
     $app->addCommand(new RunLoadCacheCommand());
+    $app->addCommand(new RunFetchProductCommand());
   }
 
 }
