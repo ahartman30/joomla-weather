@@ -6,6 +6,7 @@
 		<type>package</type>
 		<version>@version@</version>
 		<infourl title="Wetter Opendata">https://www.heusenstamm-wetter.de</infourl>
+		<changelogurl>https://joomlaupdate.ahartman.de/pkg_weatherchart/changelog.xml</changelogurl>
 		<maintainer>Alexander Hartmann</maintainer>
 		<maintainerurl>https://github.com/ahartman30</maintainerurl>
 		<targetplatform name="joomla" version="((4\.(3|4|5))|(5\.(0|1|2|3|4|5|6|7|8|9)))"/>

@@ -56,7 +56,7 @@ class WeatherChart extends CMSPlugin {
   }
 
   private function init(string $text): void {
-    $this->cmdPattern   = '/{' . self::CMD . '\s(?P<template>\w+);(?P<width>\d+);(?P<height>\d+)(;(?P<link>.+))?}/i';
+    $this->cmdPattern   = '/{' . self::CMD . '\s(?P<template>\w+);(?P<width>.*);(?P<height>.*)(;(?P<link>.+))?}/i';
     $this->dataDir      = ComponentHelper::getParams('com_weatherchart')->get('datapath');
     $this->themeVersion = ComponentHelper::getParams('com_weatherchart')->get('themeVersion');
     $this->dataDir      = $this->resolveCleanAbsolutePath($this->dataDir);
@@ -132,6 +132,11 @@ class WeatherChart extends CMSPlugin {
       $cachFileUrl   = $this->cacheDirHttp . "/" . $cacheFileName;
       Factory::getDocument()->addScript($cachFileUrl);
 
+      if (empty($width)) $width = "100%";
+      if (empty($height)) $height = "100%";
+      if (is_numeric($width)) $width .= "px"; // backward compatibility
+      if (is_numeric($height)) $height .= "px";
+
       $includeWithLink = strlen($link) > 0;
       if ($includeWithLink) {
         $chartContainer = $this->getContainerHtmlForBox($containerId, $width, $height, $link);
@@ -160,9 +165,8 @@ class WeatherChart extends CMSPlugin {
     $query->from('#__weatherchart_templates');
     $query->where("name=" . $query->quote($templateName, true));
     $db->setQuery($query);
-    $result = $db->loadAssoc();
 
-    return $result;
+    return $db->loadAssoc();
   }
 
   private function cacheFileUptodate(?string $cacheFile, string $timeTemplate, string $dataFile): bool {
@@ -226,9 +230,7 @@ class WeatherChart extends CMSPlugin {
   }
 
   private function getContainerHtml(string $containerId, string $width, string $height): string {
-    $html = '<div id="' . $containerId . '" style="width: ' . $width . 'px; height: ' . $height . 'px;"></div>';
-
-    return $html;
+    return '<div id="' . $containerId . '" style="width: ' . $width . '; height: ' . $height . ';"></div>';
   }
 
   private function getContainerHtmlForBox(string $containerId, string $width, string $height, string $link): string {
@@ -248,7 +250,7 @@ class WeatherChart extends CMSPlugin {
     $html = '<a id="' . $linkId . '" href="#' . $inlineId . '">' . $linkContent . '</a>';
     $html .= '<div style="display: none">';
     $html .= '<div id="' . $inlineId . '" style="background-color: #9F9F9F">';
-    $html .= '<div id="' . $containerId . '" style="width: ' . $width . 'px; height: ' . $height . 'px; margin: 0;"></div>';
+    $html .= '<div id="' . $containerId . '" style="width: ' . $width . '; height: ' . $height . '; margin: 0;"></div>';
     $html .= '</div></div>';
 
     return $html;

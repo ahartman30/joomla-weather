@@ -5,6 +5,7 @@
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
   <copyright>(C) 2024 Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
+  <changelogurl>https://joomlaupdate.ahartman.de/pkg_weatherchart/changelog.xml</changelogurl>
   <creationDate>@creationdate@</creationDate>
   <packagename>weatherchart</packagename>
   <version>@version@</version>
