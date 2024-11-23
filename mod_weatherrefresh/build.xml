@@ -1,6 +1,6 @@
 <project name="mod_weatherrefresh" default="build" basedir=".">
 
-  <property name="version" value="1.0.0"/>
+  <property name="version" value="1.0.1"/>
   <property name="build" location="build"/>
   <property name="build.plg" location="build/mod_weatherrefresh"/>
 

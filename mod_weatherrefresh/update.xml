@@ -3,7 +3,7 @@
    <update>
       <name>Wetter Site Refresh Module</name>
       <description>Wetter Site Refresh Module</description>
-      <element>mod_refresh</element>
+      <element>mod_weatherrefresh</element>
       <type>module</type>
       <version>@version@</version>
       <infourl title="Wetter Opendata">https://www.heusenstamm-wetter.de</infourl>
