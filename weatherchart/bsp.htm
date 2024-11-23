@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Highcharts Example</title>
+
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script src="highcharts/code/highcharts.js"></script>
+
+<div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
+
+<script type="text/javascript">
+var data_chart_RueckblickVorhersage_OBS_FC = {
+  "title": "R\u00fcckblick und Vorhersage Heusenstamm",
+  "subtitle": "Wetterstation Heusenstamm und DWD-MOSMIX 22 UTC",
+  "xaxis": [
+    "12.11.2024",
+    "13.11.2024",
+    "14.11.2024",
+    "15.11.2024",
+    "16.11.2024",
+    "17.11.2024",
+    "18.11.2024",
+    "19.11.2024",
+    "20.11.2024",
+    "heute",
+    "22.11.2024",
+    "23.11.2024",
+    "24.11.2024",
+    "25.11.2024",
+    "26.11.2024",
+    "27.11.2024",
+    "28.11.2024",
+    "29.11.2024",
+    "30.11.2024"
+  ],
+  "xaxis_tooltip": [
+    "12.11.2024",
+    "13.11.2024",
+    "14.11.2024",
+    "15.11.2024",
+    "16.11.2024",
+    "17.11.2024",
+    "18.11.2024",
+    "19.11.2024",
+    "20.11.2024",
+    "heute",
+    "22.11.2024",
+    "23.11.2024",
+    "24.11.2024",
+    "25.11.2024",
+    "26.11.2024",
+    "27.11.2024",
+    "28.11.2024",
+    "29.11.2024",
+    "30.11.2024"
+  ],
+  "yaxis_1": [
+    8.9,
+    6.7,
+    7.0,
+    8.3,
+    6.7,
+    5.1,
+    5.9,
+    9.8,
+    4.5,
+    {
+      "y": 1.2,
+      "marker": {
+        "fillColor": "#FFFFFF",
+        "lineColor": "#FF0000",
+        "radius": 6,
+        "lineWidth": 3
+      }
+    }
+  ],
+  "yaxis_1_unit": "\u00b0C",
+  "yaxis_1_name": "Temperatur Max",
+  "yaxis_2": [
+    4.9,
+    3.6,
+    4.8,
+    5.8,
+    4.5,
+    3.8,
+    4.1,
+    3.3,
+    0.3,
+    {
+      "y": 0.0,
+      "marker": {
+        "fillColor": "#FFFFFF",
+        "lineColor": "#4572A7",
+        "radius": 6,
+        "lineWidth": 3
+      }
+    }
+  ],
+  "yaxis_2_unit": "\u00b0C",
+  "yaxis_2_name": "Temperatur Min",
+  "yaxis_3": [
+    0.0,
+    2.6,
+    1.8,
+    0.0,
+    0.2,
+    2.2,
+    12.4,
+    18.2,
+    0.2,
+    0.0
+  ],
+  "yaxis_3_unit": " mm",
+  "yaxis_3_name": "Niederschlag",
+  "yaxis_4": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    2.5,
+    5.5,
+    14.1,
+    14.2,
+    10.8,
+    8.6,
+    7.5,
+    6.6,
+    5.5
+  ],
+  "yaxis_5": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -2.9,
+    1.4,
+    2.9,
+    7.7,
+    7.5,
+    4.8,
+    3.6,
+    2.6,
+    1.4
+  ],
+  "yaxis_6": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.5,
+    0.8,
+    0.0,
+    1.1,
+    0.9,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ]
+}
+
+
+
+var chartOptions_chart_RueckblickVorhersage_OBS_FC = {
+  chart: {
+    renderTo: 'chart_RueckblickVorhersage_OBS_FC',
+    alignTicks: false
+  },
+  title: {
+    text: data_chart_RueckblickVorhersage_OBS_FC.title
+  },
+  subtitle: {
+    text: data_chart_RueckblickVorhersage_OBS_FC.subtitle
+  },
+  credits: {
+    enabled: true,
+    text: 'Zum WochenrÃ¼ckblick',
+    href: 'http://www.heusenstamm-wetter.de/wetter-heusenstamm/aktuelle-werte#wochenrÃ¼ckblick',
+    position: {
+      align: 'center',
+      x: 0,
+      verticalAlign: 'bottom',
+      y: 0
+    },
+    style: {
+      cursor: 'pointer',
+      color: '#909090',
+      fontSize: '10px'
+    }
+  },
+  xAxis: [{
+    categories: data_chart_RueckblickVorhersage_OBS_FC.xaxis,
+    labels: {
+      formatter: function() {
+        return 	this.value == "heute" ? '<p style="color: red; font-weight: bold; font-size: small">heute</p>' : getDayOfWeek(this.value);
+      }
+    }
+  }],
+  yAxis: [{ // Temperatur
+    allowDecimals: false,
+    maxPadding: 0.1,
+    labels: {
+      formatter: function() {
+        return this.value + data_chart_RueckblickVorhersage_OBS_FC.yaxis_1_unit;
+      },
+      style: {
+        color: '#000000'
+      }
+    },
+    title: {
+      text: ''
+    }
+
+  }, { // Niederschlag
+    allowDecimals: false,
+    maxPadding: 0.1,
+    gridLineWidth: 0,
+    title: {
+      text: ''
+    },
+    labels: {
+      formatter: function() {
+        return this.value + data_chart_RueckblickVorhersage_OBS_FC.yaxis_3_unit;
+      },
+      style: {
+        color: '#32cd32'
+      }
+    },
+    opposite: true
+  }],
+  tooltip: {
+    borderColor: "#4572A7",
+    borderWidth: 0,
+    crosshairs: {
+        width: 1,
+        color: 'black',
+        dashStyle: 'solid',
+        zIndex: 100
+    },
+    shared: true,
+    useHTML: true,
+    formatter: function() {
+      var max = this.points[1];
+      var min = this.points[2];
+      var rain = this.points[0];
+
+      day = data_chart_RueckblickVorhersage_OBS_FC.xaxis_tooltip[min.point.x];
+      dayOfWeek = day == 'heute' ? '' : getDayOfWeek(data_chart_RueckblickVorhersage_OBS_FC.xaxis_tooltip[min.point.x]) + ' ';
+      var tooltip = '<span style="font-weight:bold">' + dayOfWeek + data_chart_RueckblickVorhersage_OBS_FC.xaxis_tooltip[min.point.x] + "</span><br/>";
+      tooltip += '<table><tr><td style="border:none;color:#FF0000;font-weight:bold">Maximum: </td><td style="border:none;color:#000000;font-weight:bold;text-align:right">' + max.y.toFixed(1) + '&nbsp;</td><td style="border:none;color:#000000;font-weight:bold;text-align:left">' + data_chart_RueckblickVorhersage_OBS_FC.yaxis_1_unit + '</td></tr>';
+      tooltip += '<tr><td style="border:none;color:#0000FF;font-weight:bold">Minimum: </td><td style="border:none;color:#000000;font-weight:bold;text-align:right">' + min.y.toFixed(1) + '&nbsp;</td><td style="border:none;color:#000000;font-weight:bold;text-align:left">' + data_chart_RueckblickVorhersage_OBS_FC.yaxis_2_unit +  '</td></tr>';
+      tooltip += '<tr><td style="border:none;color:#32cd32;font-weight:bold">Niederschlag:&nbsp;</td><td style="border:none;color:#000000;font-weight:bold;text-align:right">' + rain.y.toFixed(1) + '&nbsp;</td><td style="border:none;color:#000000;font-weight:bold;text-align:left">' + data_chart_RueckblickVorhersage_OBS_FC.yaxis_3_unit +  '</td></tr></table>';
+
+      return tooltip;
+    }
+  },
+  legend: {
+    layout: 'horizontal',
+    align: 'center',
+    verticalAlign: 'bottom',
+  },
+  series: [{ // Precip OBS
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_3_name,
+    color: '#32cd32',
+    type: 'column',
+    grouping: false,
+    yAxis: 1,
+    legendIndex : 2,
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_3
+  }, { // Max OBS
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_1_name,
+    color: '#FF0000',
+    type: 'spline',
+    yAxis: 0,
+    legendIndex : 0,
+    marker: { symbol: 'circle' },
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_1
+  }, { // Min OBS
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_2_name,
+    type: 'spline',
+    color: '#4572A7',
+    yAxis: 0,
+    legendIndex : 1,
+    marker: { symbol: 'circle' },
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_2
+  }, { // Precip FC
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_6_name,
+    color: "#C2FFB7",
+    type: 'column',
+    grouping: false,
+    yAxis: 1,
+    legendIndex : 5,
+    showInLegend: false,
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_6
+  }, { // Max FC
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_4_name,
+    color: '#FF0000',
+    type: 'spline',
+    yAxis: 0,
+    legendIndex : 3,
+    dashStyle: 'ShortDash',
+    showInLegend: false,
+    marker: { enabled: false },
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_4
+  }, { // Min FC
+    name: data_chart_RueckblickVorhersage_OBS_FC.yaxis_5_name,
+    type: 'spline',
+    color: '#4572A7',
+    yAxis: 0,
+    legendIndex : 4,
+    dashStyle: 'ShortDash',
+    showInLegend: false,
+    marker: { enabled: false },
+    data: data_chart_RueckblickVorhersage_OBS_FC.yaxis_5
+  }],
+  plotOptions: {
+    series: {
+      events: {
+        legendItemClick: function(event) {
+          return false;
+        }
+      }
+    }
+  }
+}
+function getDayOfWeek(dateAsString) {
+  weekDays = new Array("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa");
+  year = dateAsString.slice(6, 10);
+  month = dateAsString.slice(3, 5) - 1;
+  day = dateAsString.slice(0, 2);
+  date = new Date(year, month, day);
+  dayOfWeek = date.getDay();
+  return weekDays[dayOfWeek];
+}
+
+new Highcharts.Chart('container', chartOptions_chart_RueckblickVorhersage_OBS_FC);
+
+</script>
+
+</body>
+</html>
