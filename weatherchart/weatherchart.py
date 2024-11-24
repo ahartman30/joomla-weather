@@ -47,9 +47,9 @@ tn = list(map(lambda x: float(x), filter(lambda x: x != "---", forecasts['Tn_org
 tx = list(map(lambda x: float(x), filter(lambda x: x != "---", forecasts['Tx_org'][42 + lowerBoundOffsetHours::24])))[:countForecasts]
 rr = list(map(lambda x: float(x), forecasts['RR24'][48 + lowerBoundOffsetHours::24]))[:countForecasts]
 
-# Append 22 UTC RR24, when forecast length exceeded after midnight.
+# Workaround: Append last UTC RR24, when forecast length exceeded after midnight.
 if len(rr) == countForecasts - 1:
-    rr.append(float(forecasts['RR24'][262]))
+    rr.append(float(forecasts['RR24'][-1]))
 
 
 chart = {
