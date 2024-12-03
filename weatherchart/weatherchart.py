@@ -43,9 +43,9 @@ if forecastStartDateGZ < observationDateGZ:
 countForecasts = 9
 
 # Get Tn (06 UTC), Tx (18 UTC), RR24 (00 UTC); note, RR24 is not consistent with GZ PTP in grid point table!
-tn = list(map(lambda x: float(x), filter(lambda x: x != "---", forecasts['Tn_org'][30 + lowerBoundOffsetHours::24])))[:countForecasts]
-tx = list(map(lambda x: float(x), filter(lambda x: x != "---", forecasts['Tx_org'][42 + lowerBoundOffsetHours::24])))[:countForecasts]
-rr = list(map(lambda x: float(x), forecasts['RR24'][48 + lowerBoundOffsetHours::24]))[:countForecasts]
+tn = [float(x) for x in forecasts['Tn_org'][30 + lowerBoundOffsetHours::24] if not x == "---"][:countForecasts]
+tx = [float(x) for x in forecasts['Tx_org'][42 + lowerBoundOffsetHours::24] if not x == "---"][:countForecasts]
+rr = [float(x) for x in forecasts['RR24'][48 + lowerBoundOffsetHours::24]][:countForecasts]
 
 # Workaround: Append last UTC RR24, when forecast length exceeded after midnight.
 if len(rr) == countForecasts - 1:
