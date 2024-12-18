@@ -47,6 +47,7 @@ class WeatherStation extends CMSPlugin {
     }
     else {
       $this->error('Keine json Dateien angegeben!');
+      $files = array();
     }
 
     // Load data.
@@ -63,9 +64,9 @@ class WeatherStation extends CMSPlugin {
         $this->error('Datei ' . $fileName . ' existiert nicht oder enthält keine Daten!');
       }
     }
-    if (array_count_values($data) == 0) {
+    if (count($data) == 0) {
       $this->printErrorMessage();
-    };
+    }
 
     // Remove plugin cmd.
     $text = str_replace(self::CMD, '', $row->text);
