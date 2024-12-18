@@ -110,7 +110,7 @@ class DataLoader {
       throw new Exception($product . ": Das Produkt existiert nicht.");
     }
     $type = $data['product'];
-    $file = $this->getCacheFileIfExisting($product, $type);
+    $file = $this->getCacheFilePathIfExisting($product, $type);
     if ($file == null) return null;
 
     return array($type, $file);
@@ -157,10 +157,10 @@ class DataLoader {
    */
   private function getProductFromOpendata(string $product, array $data): array {
     $productType = $data["product"];
-    $cacheFile   = $this->getCacheFileIfExisting($product, $productType);
+    $cacheFile   = $this->getCacheFilePathIfExisting($product, $productType);
     $url         = null;
     if ($this->cacheExpired($product, $data)) {
-      $fileTime = $cacheFile ?? filemtime($cacheFile);
+      $fileTime = isset($cacheFile) ? filemtime($cacheFile) : 0;
 
       # Fetch file list for product
       $path = '/' . $this->resolvePlaceHolders($data["file"]);
@@ -177,7 +177,7 @@ class DataLoader {
       $timestamp  = ftp_mdtm($this->ftp, $fileNewest);
       if ($timestamp > $fileTime) { // if ftp file is newer than cache
         $ext       = $this->isImage($productType) ? pathinfo($fileNewest, PATHINFO_EXTENSION) : "txt";
-        $cacheFile = $this->getCacheFile($product, $ext);
+        $cacheFile = $this->getCacheFilePath($product, $ext);
         ftp_get($this->ftp, $cacheFile, $fileNewest, FTP_BINARY);
         if (!$this->isImage($productType)) {
           $content = file_get_contents($cacheFile);
@@ -271,7 +271,7 @@ class DataLoader {
   private function getProductFromWeb(string $product, array $data): ?array {
     $ext           = pathinfo($data["file"], PATHINFO_EXTENSION);
     $productType   = $data['product'];
-    $cacheFile     = $this->getCacheFileIfExisting($product, $productType);
+    $cacheFile     = $this->getCacheFilePathIfExisting($product, $productType);
     $cacheFileHash = null;
     if ($cacheFile != null) $cacheFileHash = md5(file_get_contents($cacheFile));
 
@@ -285,7 +285,7 @@ class DataLoader {
     $newFileHash = md5($newFileContent);
 
     if ($newFileHash != $cacheFileHash) {
-      $cacheFile = $this->getCacheFile($product, $ext);
+      $cacheFile = $this->getCacheFilePath($product, $ext);
       if (!$this->isImage($productType)) {
         $newFileContent = $this->formatContent($newFileContent, "");
       }
@@ -333,11 +333,11 @@ class DataLoader {
     return $productType == "img";
   }
 
-  private function getCacheFile(string $productName, string $extension): string {
+  private function getCacheFilePath(string $productName, string $extension): string {
     return $this->cache_dir . "/" . $productName . "." . $extension;
   }
 
-  private function getCacheFileIfExisting($productName, $productType) {
+  private function getCacheFilePathIfExisting($productName, $productType) {
     $file = $this->cache_dir . "/" . $productName . ".";
     if ($this->isImage($productType)) {
       $result = glob($file . "*");
@@ -373,7 +373,7 @@ class DataLoader {
 
   private function cacheExpired(string $product, array $data): bool {
     $productType = $data["product"];
-    $cacheFile   = $this->getCacheFileIfExisting($product, $productType);
+    $cacheFile   = $this->getCacheFilePathIfExisting($product, $productType);
     $checkInMin  = $data["cache_minutes"];
 
     # CACHE-check

@@ -1,6 +1,6 @@
 <project name="pkg_weatheropendata" default="build" basedir=".">
 
-  <property name="version" value="1.0.4"/>
+  <property name="version" value="1.0.5"/>
   <property name="build" location="build"/>
   <property name="build.pkg" location="build/pkg_weatheropendata"/>
 
