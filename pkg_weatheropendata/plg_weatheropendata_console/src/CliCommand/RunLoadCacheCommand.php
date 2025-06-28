@@ -79,7 +79,7 @@ class RunLoadCacheCommand extends AbstractCommand {
       }
       catch (Exception $e) {
         $countProductsError++;
-        $out->writeln(sprintf('%-45s ->   %s://%s (%d Min)', $productName, $product['protocol'], $product['file'], $product['cache_minutes']));
+        $out->writeln(sprintf('%-45s ->   %s://.../%s (%d Min)', $productName, $product['protocol'], $product['file'], $product['cache_minutes']));
         $out->writeln("    ERROR: " . $e->getMessage());
         continue;
       }

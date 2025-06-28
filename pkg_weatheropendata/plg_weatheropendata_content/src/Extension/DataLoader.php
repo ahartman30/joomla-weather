@@ -166,7 +166,7 @@ class DataLoader {
       $path = '/' . $this->resolvePlaceHolders($data["file"]);
       $dir  = pathinfo($path, PATHINFO_DIRNAME);
       $file = pathinfo($path, PATHINFO_BASENAME);
-      ftp_chdir($this->ftp, $dir);
+      if (!ftp_chdir($this->ftp, $dir)) throw new Exception(sprintf("%s: Wechsel in FTP-Verzeichnis \"%s\" schlägt fehlt.", $product, $dir));
       $fileList = ftp_nlist($this->ftp, $file);
       if ($fileList === false || count($fileList) == 0) {
         throw new Exception($product . ": Produkt nicht im Opendata vorhanden oder nicht abrufbar.");
