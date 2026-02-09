@@ -321,11 +321,8 @@ class DataLoader {
     $content = curl_exec($curl);
     if ($content === false) {
       $error = curl_error($curl);
-      curl_close($curl);
       throw new Exception($error);
     }
-    curl_close($curl);
-
     return $content;
   }
 
