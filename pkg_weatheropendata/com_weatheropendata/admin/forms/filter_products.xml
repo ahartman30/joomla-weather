@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form addfieldprefix="Weather\Component\WeatherOpenData\Administrator\Field">
+	<fields name="filter">
+		<field
+				name="search"
+				type="text"
+				inputmode="search"
+				label="COM_WEATHEROPENDATA_PRODUCTS_FILTER_SEARCH_LABEL"
+				description="COM_WEATHEROPENDATA_PRODUCTS_FILTER_SEARCH_DESC"
+				hint="JSEARCH_FILTER"
+		/>
+		<field
+				name="product"
+				type="list"
+				label="COM_WEATHEROPENDATA_HEADING_PRODUCT"
+				default="0"
+				class="js-select-submit-on-change"
+				validate="options"
+		>
+			<option value="">COM_WEATHEROPENDATA_SELECT_PRODUCT</option>
+			<option value="img">COM_WEATHEROPENDATA_PRODUCT_FORMAT_IMG</option>
+			<option value="txt">COM_WEATHEROPENDATA_PRODUCT_FORMAT_TXT</option>
+			<option value="wmo">COM_WEATHEROPENDATA_PRODUCT_FORMAT_WMO</option>
+			<option value="wmo_txt">COM_WEATHEROPENDATA_PRODUCT_FORMAT_WMO_TXT</option>
+			<option value="html">COM_WEATHEROPENDATA_PRODUCT_FORMAT_HTML</option>
+			<option value="fp13">COM_WEATHEROPENDATA_PRODUCT_FORMAT_FP13</option>
+			<option value="fp13_title">COM_WEATHEROPENDATA_PRODUCT_FORMAT_FP13_TITLE</option>
+			<option value="sx31">COM_WEATHEROPENDATA_PRODUCT_FORMAT_SX31</option>
+			<option value="sx33">COM_WEATHEROPENDATA_PRODUCT_FORMAT_SX33</option>
+			<option value="vhdl50_title">COM_WEATHEROPENDATA_PRODUCT_FORMAT_VHDL50_TITLE</option>
+			<option value="vhdl">COM_WEATHEROPENDATA_PRODUCT_FORMAT_VHDL</option>
+		</field>
+		<field
+				name="protocol"
+				type="list"
+				label="COM_WEATHEROPENDATA_HEADING_PROTOCOL"
+				default="0"
+				class="js-select-submit-on-change"
+				validate="options"
+		>
+			<option value="">COM_WEATHEROPENDATA_SELECT_PROTOCOL</option>
+			<option value="ftp">ftp</option>
+			<option value="http">http</option>
+			<option value="https">https</option>
+		</field>
+	</fields>
+	<fields name="list">
+		<field
+				name="fullordering"
+				type="list"
+				label="JGLOBAL_SORT_BY"
+				statuses="*,0,1,2,-2"
+				class="js-select-submit-on-change"
+				default="a.name ASC"
+				validate="options"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<option value="a.name ASC">JGLOBAL_NAME_ASC</option>
+			<option value="a.name DESC">JGLOBAL_NAME_DESC</option>
+			<option value="a.product ASC">COM_WEATHEROPENDATA_HEADING_PRODUCT_ASC</option>
+			<option value="a.product DESC">COM_WEATHEROPENDATA_HEADING_PRODUCT_DESC</option>
+			<option value="a.cache_minutes ASC">COM_WEATHEROPENDATA_HEADING_CACHE_ASC</option>
+			<option value="a.cache_minutes DESC">COM_WEATHEROPENDATA_HEADING_CACHE_DESC</option>
+			<option value="a.protocol ASC">COM_WEATHEROPENDATA_HEADING_PROTOCOL_ASC</option>
+			<option value="a.protocol DESC">COM_WEATHEROPENDATA_HEADING_PROTOCOL_DESC</option>
+			<option value="a.file ASC">COM_WEATHEROPENDATA_HEADING_FILE_ASC</option>
+			<option value="a.file DESC">COM_WEATHEROPENDATA_HEADING_FILE_DESC</option>
+			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+		</field>
+		<field
+				name="limit"
+				type="limitbox"
+				label="JGLOBAL_LIST_LIMIT"
+				default="25"
+				class="js-select-submit-on-change"
+		/>
+	</fields>
+</form>

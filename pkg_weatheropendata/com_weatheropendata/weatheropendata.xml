@@ -3,12 +3,12 @@
   <name>com_weatheropendata</name>
   <author>Alexander Hartmann</author>
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
-  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <copyright>(C) 2026 Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
-  <creationDate>@creationdate@</creationDate>
-  <version>@version@</version>
+  <creationDate>2026-02-27</creationDate>
+  <version>1.1.0</version>
   <description>COM_WEATHEROPENDATA_DESCRIPTION</description>
-
+  <namespace path="src">Weather\Component\WeatherOpenData</namespace>
   <install>
     <sql>
       <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
@@ -26,16 +26,24 @@
 
   <administration>
     <menu>com_weatheropendata</menu>
+    <submenu>
+      <menu
+          link="option=com_weatheropendata"
+          view="products"
+          img="class:products"
+          alt="WeatherOpendata/Products"
+      >
+        com_weatheropendata_products
+      </menu>
+    </submenu>
     <files folder="admin">
-      <filename>weatheropendata.php</filename>
-      <filename>controller.php</filename>
-      <filename>config.xml</filename>
       <filename>access.xml</filename>
+      <filename>config.xml</filename>
+      <folder>forms</folder>
+      <folder>services</folder>
       <folder>sql</folder>
-      <folder>controllers</folder>
-      <folder>models</folder>
-      <folder>views</folder>
-      <folder>tables</folder>
+      <folder>src</folder>
+      <folder>tmpl</folder>
     </files>
     <languages folder="admin">
       <language tag="de-DE">language/de-DE/de-DE.com_weatheropendata.ini</language>
@@ -62,5 +70,4 @@
       </fieldset>
     </fields>
   </config>
-
 </extension>

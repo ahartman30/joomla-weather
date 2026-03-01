@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+  <inlinehelp button="show"/>
   <fieldset
-    name="preferences"
-    label="COM_WEATHEROPENDATA_SETTINGS_LABEL"
-    description="COM_WEATHEROPENDATA_SETTINGS_DESCRIPTION"
-  >
+      name="products"
+      label="COM_WEATHEROPENDATA_SETTINGS_LABEL"
+      description="COM_WEATHEROPENDATA_SETTINGS_DESCRIPTION">
     <field
-      name="opendata_username"
-      type="text"
-      required="true"
-      default="anonymous"
-      label="COM_WEATHEROPENDATA_SETTINGS_USERNAME_LABEL"
-      description="COM_WEATHEROPENDATA_SETTINGS_USERNAME_DESCRIPTION"
-      class="inputbox"/>
+        name="opendata_username"
+        type="text"
+        required="true"
+        label="COM_WEATHEROPENDATA_SETTINGS_USERNAME_LABEL"
+        description="COM_WEATHEROPENDATA_SETTINGS_USERNAME_DESCRIPTION"
+        default="anonymous"/>
     <field
-      name="opendata_password"
-      type="password"
-      required="true"
-      default="anonymous"
-      label="COM_WEATHEROPENDATA_SETTINGS_PASSWORD_LABEL"
-      description="COM_WEATHEROPENDATA_SETTINGS_PASSWORD_DESCRIPTION"
-      class="inputbox"/>
+        name="opendata_password"
+        type="password"
+        required="true"
+        label="COM_WEATHEROPENDATA_SETTINGS_PASSWORD_LABEL"
+        description="COM_WEATHEROPENDATA_SETTINGS_PASSWORD_DESCRIPTION"
+        default="anonymous"/>
     <field
-      name="opendata_host"
-      type="text"
-      required="true"
-      size="30"
-      default="opendata.dwd.de"
-      label="COM_WEATHEROPENDATA_SETTINGS_HOST_LABEL"
-      description="COM_WEATHEROPENDATA_SETTINGS_HOST_DESCRIPTION"
-      class="inputbox"/>
+        name="opendata_host"
+        type="text"
+        required="true"
+        label="COM_WEATHEROPENDATA_SETTINGS_HOST_LABEL"
+        description="COM_WEATHEROPENDATA_SETTINGS_HOST_DESCRIPTION"
+        default="opendata.dwd.de"/>
     <field
-      name="opendata_passive"
-      type="radio"
-      default="1"
-      label="COM_WEATHEROPENDATA_SETTINGS_FTPMODE_LABEL"
-      description="COM_WEATHEROPENDATA_SETTINGS_FTPMODE_DESCRIPTION"
-      class="inputbox">
-        <option value="0">Aus</option>
-        <option value="1">Ein</option>
+        name="opendata_passive"
+        type="radio"
+        layout="joomla.form.field.radio.switcher"
+        label="COM_WEATHEROPENDATA_SETTINGS_FTPMODE_LABEL"
+        description="COM_WEATHEROPENDATA_SETTINGS_FTPMODE_DESCRIPTION"
+        default="1">
+      <option value="0">JDISABLED</option>
+      <option value="1">JENABLED</option>
     </field>
   </fieldset>
 </config>

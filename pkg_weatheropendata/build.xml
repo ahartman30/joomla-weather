@@ -1,6 +1,6 @@
 <project name="pkg_weatheropendata" default="build" basedir=".">
 
-  <property name="version" value="1.0.6"/>
+  <property name="version" value="1.1.0"/>
   <property name="build" location="build"/>
   <property name="build.pkg" location="build/pkg_weatheropendata"/>
 
@@ -52,9 +52,12 @@
         <include name="pkg_weatheropendata.xml"/>
       </fileset>
     </zip>
+    <delete dir="${build.pkg}"/>
 
-    <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-256" property="pkgfile.checksum"/>
-    <replace file="${build}/update.xml" token="@checksum@" value="${pkgfile.checksum}"/>
+    <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-256" property="pkgfile.checksum.256"/>
+    <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-512" property="pkgfile.checksum.512"/>
+    <replace file="${build}/update.xml" token="@checksum.256@" value="${pkgfile.checksum.256}"/>
+    <replace file="${build}/update.xml" token="@checksum.512@" value="${pkgfile.checksum.512}"/>
     <replace file="${build}/update.xml" token="@version@" value="${version}"/>
   </target>
 

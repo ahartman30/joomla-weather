@@ -9,7 +9,7 @@ CREATE TABLE `#__weatheropendata_products` (
   `cache_minutes` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`),
   INDEX `idx_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `#__weatheropendata_products` (`name`, `protocol`, `file`, `product`, `cache_minutes`) VALUES
   ('T_OD_VHS_VHDL17_DWOG', 'ftp', 'weather/text_forecasts/txt/ber01-VHDL17_DWOG*', 'wmo_txt', 60),
