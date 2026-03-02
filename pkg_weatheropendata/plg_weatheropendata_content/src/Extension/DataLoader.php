@@ -1,10 +1,15 @@
 <?php
+/**
+ * @copyright   (C) 2026 Alexander Hartmann
+ * @license     GNU GPL v3 or later
+ */
 
 namespace Weather\Plugin\Content\OpenData\Extension;
 
 use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\Path;
 
 defined('_JEXEC') or die('Restricted access');
@@ -127,7 +132,7 @@ class DataLoader {
    * @since 1.0.0
    */
   private function loadData(string $product) {
-    $db    = Factory::getDbo();
+    $db    = Factory::getContainer()->get(DatabaseInterface::class);
     $query = $db->getQuery(true);
     $query->select('name, protocol, file, product, cache_minutes');
     $query->from('#__weatheropendata_products');

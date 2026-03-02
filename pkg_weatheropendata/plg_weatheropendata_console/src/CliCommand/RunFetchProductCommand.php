@@ -1,11 +1,14 @@
 <?php
+/**
+ * @copyright   (C) 2026 Alexander Hartmann
+ * @license     GNU GPL v3 or later
+ */
 
 namespace Weather\Plugin\Console\OpenData\CliCommand;
 
 defined('_JEXEC') or die;
 
 use Exception;
-use Joomla\CMS\Factory;
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\Filesystem\File;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +23,7 @@ class RunFetchProductCommand extends AbstractCommand {
    * The default command name
    *
    * @var    string
-   * @since  4.0.0
+   * @since  1.0.0
    */
   protected static $defaultName = 'weatheropendata:fetchproduct';
 
@@ -32,7 +35,7 @@ class RunFetchProductCommand extends AbstractCommand {
    *
    * @return  integer  The command exit code
    *
-   * @since   4.0.0
+   * @since   1.0.0
    */
   protected function doExecute(InputInterface $input, OutputInterface $output): int {
     $out = new SymfonyStyle($input, $output);
@@ -51,28 +54,6 @@ class RunFetchProductCommand extends AbstractCommand {
       $out->error($e->getMessage());
       return 1;
     }
-
-    /*$db    = Factory::getDbo();
-    $query = $db->getQuery(true);
-    $query->select('name, protocol, file, cache_minutes');
-    $query->from('#__weatheropendata_products');
-    $query->where('name = "' . $productName . '"');
-    $db->setQuery($query);
-    try {
-      $product = $db->loadAssoc();
-    }
-    catch (Exception $e) {
-      $out->error($e->getMessage());
-      $out->error('Datenabruf fehlgeschlagen.');
-      return 1;
-    }
-
-    if (!$product){
-      $out->error('Produkt "' . $productName . '" existiert nicht.');
-      return 1;
-    }*/
-
-    // TODO Testen ohne vorher Existenz zu prüfen.
 
     $out->info(sprintf('Starte Datenabruf für Produkt %s ...', $productName));
     try {
@@ -99,7 +80,7 @@ class RunFetchProductCommand extends AbstractCommand {
    *
    * @return  void
    *
-   * @since   4.0.0
+   * @since   1.0.0
    */
   protected function configure(): void {
     $this->addOption('product', null, InputOption::VALUE_REQUIRED, 'Name of the product to fetch.');
