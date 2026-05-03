@@ -9,6 +9,7 @@ namespace Weather\Component\WeatherOpenData\Administrator\Rule;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormRule;
+use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
 
@@ -20,6 +21,8 @@ defined('_JEXEC') or die('Restricted access');
  * @since 1.1.0
  */
 class NameRule extends FormRule {
+
+  private const string ALLOWED_NAME_PATTERN = '/^[\w_-]+$/';
 
   /**
    * Method to test the value.
@@ -38,9 +41,14 @@ class NameRule extends FormRule {
    * @throws  \UnexpectedValueException if rule is invalid.
    */
   public function test(\SimpleXMLElement $element, $value, $group = null, ?Registry $input = null, ?Form $form = null) {
-    $db    = Factory::getContainer()->get(DatabaseInterface::class);
-    $query = $db->getQuery(true);
 
+    // Server side name input validation.
+    $nameAllowed = preg_match(self::ALLOWED_NAME_PATTERN, $value);
+    if (!$nameAllowed) {
+      throw new \UnexpectedValueException('Name allowed: a-z, A-Z, 0-9, _ and - ');
+    }
+
+    // Check duplicate.
     if ($form->getName() === "com_weatheropendata.product") {
       $tableName = "#__weatheropendata_products";
     } elseif ($form->getName() === "com_weatheropendata.chart") {
@@ -49,16 +57,13 @@ class NameRule extends FormRule {
       throw new \UnexpectedValueException("Invalid form name '". $form->getName() ."' for name rule validation.");
     }
 
-    // Build the query.
+    $id = $input->get('id', 0);
+    $db = Factory::getContainer()->get(DatabaseInterface::class);
+    $query = $db->getQuery(true);
     $query->select("COUNT(*)");
     $query->from($tableName);
     $query->where("name = " . $db->quote($value));
-
-    // Get record id
-    $id = $input->get('id', 0);
     $query->where($db->quoteName('id') . ' <> ' . (int) $id);
-
-    // Set and query the database.
     $db->setQuery($query);
     $duplicate = (bool) $db->loadResult();
 

@@ -20,6 +20,8 @@
         maxlength="100"
         validate="name"
         message="COM_WEATHEROPENDATA_PRODUCT_NAME_ERROR"
+        pattern="^[\w_-]+$"
+        data-validation-text="Erlaubte Zeichen: Buchstaben, Zahlen, Unterstrich und Minus."
     />
     <field
         name="protocol"
