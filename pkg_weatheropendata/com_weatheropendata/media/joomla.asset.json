@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_weatheropendata",
+  "version": "1.0.0",
+  "description": "Weather Opendata asset file",
+  "license": "GPL-3.0+",
+  "assets": [
+    {
+      "name": "com_weatheropendata.highcharts",
+      "type": "script",
+      "uri": "com_weatheropendata/highcharts/highcharts.js",
+      "dependencies": [
+        "jquery-noconflict",
+        "jquery"
+      ],
+      "version": "5.0.14"
+    },
+    {
+      "name": "com_weatheropendata.highcharts.theme_1",
+      "type": "script",
+      "uri": "com_weatheropendata/highcharts/theme_1.js",
+      "version": "5.0.14"
+    },
+    {
+      "name": "com_weatheropendata.highcharts.theme_2",
+      "type": "script",
+      "uri": "com_weatheropendata/highcharts/theme_2.js",
+      "version": "5.0.14"
+    }
+  ]
+}

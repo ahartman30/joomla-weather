@@ -3,9 +3,9 @@
   <name>com_weatheropendata</name>
   <author>Alexander Hartmann</author>
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
-  <copyright>(C) 2026 Alexander Hartmann</copyright>
+  <copyright>(C) @creation.year@ Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
-  <creationDate>2026-02-27</creationDate>
+  <creationDate>@creation.date@</creationDate>
   <version>1.1.0</version>
   <description>COM_WEATHEROPENDATA_DESCRIPTION</description>
   <namespace path="src">Weather\Component\WeatherOpenData</namespace>
@@ -19,21 +19,37 @@
       <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
     </sql>
   </uninstall>
+  <update>
+    <schemas>
+      <schemapath type="mysql">sql/updates/mysql</schemapath>
+    </schemas>
+  </update>
 
-  <media destination="weatheropendata" folder="media">
-    <folder>cache</folder>
+  <media destination="com_weatheropendata" folder="media">
+    <folder>content</folder>
+    <folder>chart/json</folder>
+    <folder>js</folder>
+    <file>joomla.asset.json</file>
   </media>
 
   <administration>
     <menu>com_weatheropendata</menu>
     <submenu>
       <menu
-          link="option=com_weatheropendata"
+          link="option=com_weatheropendata&amp;view=products"
           view="products"
           img="class:products"
           alt="WeatherOpendata/Products"
       >
         com_weatheropendata_products
+      </menu>
+      <menu
+          link="option=com_weatheropendata&amp;view=charts"
+          view="charts"
+          img="class:charts"
+          alt="WeatherOpendata/Charts"
+      >
+        com_weatheropendata_charts
       </menu>
     </submenu>
     <files folder="admin">
@@ -67,6 +83,15 @@
         <field
             name="opendata_passive"
             default="1"/>
+        <field
+            name="datapath"
+            default="./media/com_weatheropendata/chart/json"/>
+        <field
+            name="themeVersion"
+            default="1"/>
+          <field
+              name="insertcontentDataPath"
+              default="../Daten"/>
       </fieldset>
     </fields>
   </config>

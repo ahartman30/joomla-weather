@@ -1,3 +1,4 @@
+-- Products
 DROP TABLE IF EXISTS `#__weatheropendata_products`;
 
 CREATE TABLE `#__weatheropendata_products` (
@@ -26,3 +27,21 @@ INSERT INTO `#__weatheropendata_products` (`name`, `protocol`, `file`, `product`
   ('B_WWW_VHS_DL_UV_Index_ICON_Tag2', 'https', 'www.dwd.de/DWD/warnungen/medizin/uvi/uve_cli_12_region_2.png', 'img', 360),
   ('B_WWW_VHS_DL_UV_Index_ICON_Tag1', 'https', 'www.dwd.de/DWD/warnungen/medizin/uvi/uve_cli_12_region_1.png', 'img', 360),
   ('B_WWW_VHS_DL_UV_Index_ICON_Tag0', 'https', 'www.dwd.de/DWD/warnungen/medizin/uvi/uve_cli_12_region_0.png', 'img', 360);
+
+-- Charts
+DROP TABLE IF EXISTS `#__weatheropendata_charts`;
+
+CREATE TABLE `#__weatheropendata_charts` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` VARCHAR(255) NOT NULL DEFAULT '',
+  `file` VARCHAR(255) NOT NULL DEFAULT '',
+  `timestamp` int(11) NOT NULL DEFAULT '0',
+  `template` TEXT NOT NULL,
+  PRIMARY KEY  (`id`),
+  INDEX `idx_name` (`name`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+-- Insert default data, if table is still empty.
+INSERT INTO `#__weatheropendata_charts` (`name`, `file`, `timestamp`, `template`)
+SELECT 'RueckblickVorhersage_OBS_FC', 'rueckvor_obs_fc', 1524659556, '@SAMPLE_CHART@'
+WHERE NOT EXISTS (SELECT * FROM `joomla_weatheropendata_charts`)

@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
  */
 class DataLoader {
 
-  const CACHE_DIR = "media/weatheropendata/cache";
+  const CACHE_DIR = "media/com_weatheropendata/content";
 
   private string $ftp_user;
   private string $ftp_passwd;
@@ -38,7 +38,7 @@ class DataLoader {
     $this->ftp_passwd  = trim($params->get('opendata_password'));
     $this->ftp_host    = $params->get('opendata_host');
     $this->ftp_passive = $params->get('opendata_passive');
-    $this->cache_dir   = $this->resolveCleanAbsolutePath(self::CACHE_DIR);
+    $this->cache_dir   = OpenDataPlugin::resolveCleanAbsolutePath(self::CACHE_DIR);
   }
 
   /**
@@ -66,13 +66,6 @@ class DataLoader {
    */
   public function disconnect(): void {
     ftp_close($this->ftp);
-  }
-
-  private function resolveCleanAbsolutePath($relativePath): string {
-    $path = JPATH_BASE . '/' . $relativePath . '/';
-    $path = Path::clean($path);
-
-    return $path;
   }
 
   /**

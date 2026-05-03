@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" group="content" method="upgrade">
-  <name>Wetter Opendata Datenzugriff</name>
+  <name>Wetter Opendata</name>
   <author>Alexander Hartmann</author>
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
-  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <copyright>(C) @creation.year@ Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
-  <creationDate>@creationdate@</creationDate>
+  <creationDate>@creation.date@</creationDate>
   <version>@version@</version>
   <description><![CDATA[
+<h1>Produkte</h1>
 Das Plugin ermöglicht den Zugriff auf Dateien des DWD Opendata oder Bilder aus dem Web über eine Url.<br/>
 Die Produkte und die Optionen werden in der <a href="index.php?option=com_weatheropendata">Wetter DWD Opendata Komponente</a> konfiguriert.
 Die Dateien werden für eine vorgegebene Zeitspanne gecached bevor im Opendata auf eine neuere
@@ -26,17 +27,38 @@ Das Command <i>get</i> baut eine aktive Verbindung zum Opendata auf, um die Date
 Das Command <i>show</i> bindet nur die aktuellste Datei aus dem Cache ein, ohne eine aktive Verbindung zum Opendata auzubauen.<br/><br/>
 
 <h3>Anwendung:</h3>
-<i>{opendata_[load,get,show] &lt;Produktname&gt;;&lt;[opt] Größe in %&gt;;&lt;[opt] Titel und Vergrößerung bei Klick&gt;;[opt] Gruppierung}</i><br/><br/>
+<i>{opendata:product-[load,get,show] &lt;Produktname&gt;;&lt;[opt] Größe in %&gt;;&lt;[opt] Titel und Vergrößerung bei Klick&gt;;[opt] Gruppierung}</i><br/><br/>
 Bsp.:<br/>
-<i>{opendata_get Webradar_Deutschland_akt;;}</i> (Anzeige Bild in Originalgröße ohne Vergrößerung bei Klick)<br/>
-<i>{opendata_get Euro640_502_heute;50;Bodenvorhersage Europa Heute;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
-<i>{opendata_get Euro640_502_morgen;50;Bodenvorhersage Europa Morgen;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
-<i>{opendata_get FPDL13_DWMZ_0;;}</i> (Anzeige Text)<br/><br/>
-<i>{opendata_load Webradar_Deutschland_akt;;}</i> (Nur Laden des Produktes in den Cache)<br/>
-<i>{opendata_show Webradar_Deutschland_akt;;}</i> (Nur Anzeigen des Produktes aus dem Cache)<br/>
+<i>{opendata:product-get Webradar_Deutschland_akt;;}</i> (Anzeige Bild in Originalgröße ohne Vergrößerung bei Klick)<br/>
+<i>{opendata:product-get Euro640_502_heute;50;Bodenvorhersage Europa Heute;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
+<i>{opendata:product-get Euro640_502_morgen;50;Bodenvorhersage Europa Morgen;gruppe1}</i> (Anzeige Bild in 50% mit Vergrößerung, Titel und Weiterblättern bei Klick)<br/>
+<i>{opendata:product-get FPDL13_DWMZ_0;;}</i> (Anzeige Text)<br/><br/>
+<i>{opendata:product-load Webradar_Deutschland_akt;;}</i> (Nur Laden des Produktes in den Cache)<br/>
+<i>{opendata:product-show Webradar_Deutschland_akt;;}</i> (Nur Anzeigen des Produktes aus dem Cache)<br/>
 
 <h3>Cron:<h3/>
 Alle vorhandenen Produkte können mittels der Joomla CLI über die Cron abgerufen werden.
+
+<h1>Charts</h1>
+<pre>
+{opendata:chart &lt;Name Chart&gt;;;&lt;Breite&gt;;&lt;Höhe&gt}
+</pre>
+<h3>Beispiel:</h3>
+<pre>
+{opendata:chart Multi_Test;600px;300px} Einbinden direkt auf der Seite.
+</pre>
+Höhe und Breite können als px oder % angegeben werden.
+
+<h1>Text</h1>
+Das Plugin ermöglicht den Zugriff auf Textdateien, um diese in einen Beitrag einzubinden.<br/>
+Zusätzlich werden alle Sonderzeichen (außer Zeilenumbrüche) nach HTML Entitäten umgewandelt. Endet die
+Datei auf .html wird der Inhalt direkt als HTML eingebunden. Sonderzeichen werden dann nicht mehr
+ersetzt.
+Bsp:
+<pre>
+{opendata:insert Unterverzeichnis/Textdatei.txt}
+{opendata:insert Htmldatei.html}
+</pre>
 ]]></description>
   <namespace path="src">Weather\Plugin\Content\OpenData</namespace>
   <files>

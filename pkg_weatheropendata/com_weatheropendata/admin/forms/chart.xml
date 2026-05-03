@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+  <config>
+    <inlinehelp button="show"/>
+  </config>
+  <fieldset>
+    <field
+        name="id"
+        type="hidden"
+        readonly="true"
+        class="readonly"
+    />
+    <field
+        name="timestamp"
+        type="hidden"
+        readonly="true"
+        class="readonly"
+    />
+    <field
+        addruleprefix="Weather\Component\WeatherOpenData\Administrator\Rule"
+        name="name"
+        type="text"
+        label="COM_WEATHEROPENDATA_CHART_NAME_LABEL"
+        description="COM_WEATHEROPENDATA_CHART_NAME_DESCRIPTION"
+        required="true"
+        maxlength="100"
+        validate="name"
+        message="COM_WEATHEROPENDATA_CHART_NAME_ERROR"
+    />
+    <field
+        name="file"
+        type="filelist"
+        label="COM_WEATHEROPENDATA_CHART_FILE_LABEL"
+        description="COM_WEATHEROPENDATA_CHART_FILE_DESCRIPTION"
+        required="true"
+        hide_none="true"
+        hide_default="false"
+        fileFilter=".*\.json"
+        stripext="true"
+        message="COM_WEATHEROPENDATA_CHART_FILE_ERROR"
+    />
+    <field
+        name="template"
+        type="editor"
+        label="COM_WEATHEROPENDATA_CHART_EDITOR_LABEL"
+        editor="codemirror"
+        width="100%"
+        height="1000px"
+        buttons="false"
+        filter="raw"
+        syntax="js"
+    />
+  </fieldset>
+</form>

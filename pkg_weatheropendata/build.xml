@@ -1,6 +1,6 @@
 <project name="pkg_weatheropendata" default="build" basedir=".">
 
-  <property name="version" value="1.1.0"/>
+  <property name="version" value="1.2.0"/>
   <property name="build" location="build"/>
   <property name="build.pkg" location="build/pkg_weatheropendata"/>
 
@@ -10,41 +10,46 @@
 
   <target name="init" depends="clean">
     <tstamp>
-      <format pattern="yyyy-MM-dd" property="creationdate"/>
+      <format pattern="yyyy-MM-dd" property="creation.date"/>
+      <format pattern="yyyy" property="creation.year"/>
     </tstamp>
-    <echo message="Building version ${version} with creation date ${creationdate}."/>
+    <echo message="Building version ${version} with creation date ${creation.date}."/>
     <mkdir dir="${build}"/>
+  </target>
 
+  <target name="prepare-samples" depends="init">
+    <loadfile property="sample.chart" srcFile="com_weatheropendata/admin/sql/samples/RueckblickVorhersage_OBS_FC.js">
+      <filterchain>
+        <tokenfilter>
+          <filetokenizer/>
+          <replaceregex pattern="\n" flags="gs" replace="\\\\r\\\\n"/>
+          <replaceregex pattern="'" flags="gs" replace="\\\\'"/>
+          <replaceregex pattern='"' flags="gs" replace='\\\\"'/>
+        </tokenfilter>
+      </filterchain>
+    </loadfile>
+  </target>
+
+  <target name="build" depends="prepare-samples">
     <copy todir="${build}/pkg_weatheropendata">
       <fileset dir=".">
         <exclude name="build.xml"/>
         <exclude name="update.xml"/>
         <exclude name=".idea/**"/>
         <exclude name="build/**"/>
+        <exclude name="**/samples/**"/>
       </fileset>
+      <filterset>
+        <filter token="SAMPLE_CHART" value="${sample.chart}"/>
+        <filter token="version" value="${version}"/>
+        <filter token="creation.date" value="${creation.date}"/>
+        <filter token="creation.year" value="${creation.year}"/>
+      </filterset>
     </copy>
-    <copy todir="${build}" file="update.xml"/>
-  </target>
 
-  <target name="build" depends="init">
-    <replace file="${build.pkg}/com_weatheropendata/weatheropendata.xml" token="@version@" value="${version}"/>
-    <replace file="${build.pkg}/com_weatheropendata/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
     <zip destfile="${build.pkg}/com_weatheropendata.zip" basedir="${build.pkg}/com_weatheropendata"/>
-
-    <replace file="${build.pkg}/plg_weatheropendata_content/weatheropendata.xml" token="@version@" value="${version}"/>
-    <replace file="${build.pkg}/plg_weatheropendata_content/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
     <zip destfile="${build.pkg}/plg_weatheropendata_content.zip" basedir="${build.pkg}/plg_weatheropendata_content"/>
-
-    <replace file="${build.pkg}/plg_weatheropendata_console/weatheropendata.xml" token="@version@" value="${version}"/>
-    <replace file="${build.pkg}/plg_weatheropendata_console/weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
     <zip destfile="${build.pkg}/plg_weatheropendata_console.zip" basedir="${build.pkg}/plg_weatheropendata_console"/>
-
-    <replace file="${build.pkg}/plg_weatherinserttext/weatherinserttext.xml" token="@version@" value="${version}"/>
-    <replace file="${build.pkg}/plg_weatherinserttext/weatherinserttext.xml" token="@creationdate@" value="${creationdate}"/>
-    <zip destfile="${build.pkg}/plg_weatherinserttext.zip" basedir="${build.pkg}/plg_weatherinserttext"/>
-
-    <replace file="${build.pkg}/pkg_weatheropendata.xml" token="@version@" value="${version}"/>
-    <replace file="${build.pkg}/pkg_weatheropendata.xml" token="@creationdate@" value="${creationdate}"/>
     <zip destfile="${build}/pkg_weatheropendata-${version}.zip">
       <fileset dir="${build.pkg}">
         <include name="*.zip"/>
@@ -52,13 +57,16 @@
         <include name="pkg_weatheropendata.xml"/>
       </fileset>
     </zip>
-    <delete dir="${build.pkg}"/>
 
     <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-256" property="pkgfile.checksum.256"/>
     <checksum file="${build}/pkg_weatheropendata-${version}.zip" algorithm="sha-512" property="pkgfile.checksum.512"/>
-    <replace file="${build}/update.xml" token="@checksum.256@" value="${pkgfile.checksum.256}"/>
-    <replace file="${build}/update.xml" token="@checksum.512@" value="${pkgfile.checksum.512}"/>
-    <replace file="${build}/update.xml" token="@version@" value="${version}"/>
+    <copy todir="${build}" file="update.xml">
+      <filterset>
+        <filter token="version" value="${version}"/>
+        <filter token="checksum.256" value="${pkgfile.checksum.256}"/>
+        <filter token="checksum.512" value="${pkgfile.checksum.512}"/>
+      </filterset>
+    </copy>
   </target>
 
 </project>

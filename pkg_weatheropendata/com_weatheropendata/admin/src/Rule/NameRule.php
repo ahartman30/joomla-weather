@@ -41,10 +41,18 @@ class NameRule extends FormRule {
     $db    = Factory::getContainer()->get(DatabaseInterface::class);
     $query = $db->getQuery(true);
 
+    if ($form->getName() === "com_weatheropendata.product") {
+      $tableName = "#__weatheropendata_products";
+    } elseif ($form->getName() === "com_weatheropendata.chart") {
+      $tableName = "#__weatheropendata_charts";
+    } else {
+      throw new \UnexpectedValueException("Invalid form name '". $form->getName() ."' for name rule validation.");
+    }
+
     // Build the query.
-    $query->select('COUNT(*)');
-    $query->from('#__weatheropendata_products');
-    $query->where('name = ' . $db->quote($value));
+    $query->select("COUNT(*)");
+    $query->from($tableName);
+    $query->where("name = " . $db->quote($value));
 
     // Get record id
     $id = $input->get('id', 0);

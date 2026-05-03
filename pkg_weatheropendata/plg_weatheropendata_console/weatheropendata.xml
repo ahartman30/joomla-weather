@@ -3,9 +3,9 @@
   <name>Wetter Opendata Datenzugriff CLI</name>
   <author>Alexander Hartmann</author>
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
-  <copyright>(C) 2024 Alexander Hartmann</copyright>
+  <copyright>(C) @creation.year@ Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
-  <creationDate>@creationdate@</creationDate>
+  <creationDate>@creation.date@</creationDate>
   <version>@version@</version>
   <description><![CDATA[
 Plugin zum Laden der Daten in den Cache über das Joomla CLI.

@@ -5,10 +5,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Extension\PluginInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\DatabaseInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
-use Weather\Plugin\Content\OpenData\Extension\OpenData;
+use Weather\Plugin\Content\OpenData\Extension\OpenDataPlugin;
 
 return new class () implements ServiceProviderInterface {
 
@@ -26,12 +27,12 @@ return new class () implements ServiceProviderInterface {
       PluginInterface::class,
       function (Container $container) {
         $dispatcher = $container->get(DispatcherInterface::class);
-        $plugin     = new OpenData(
+        $plugin     = new OpenDataPlugin(
           $dispatcher,
           (array) PluginHelper::getPlugin('content', 'weatheropendata')
         );
         $plugin->setApplication(Factory::getApplication());
-
+        $plugin->setDatabase($container->get(DatabaseInterface::class));
         return $plugin;
       }
     );

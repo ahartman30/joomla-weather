@@ -37,4 +37,39 @@
       <option value="1">JENABLED</option>
     </field>
   </fieldset>
+  <fieldset
+      name="charts"
+      label="COM_WEATHEROPENDATA_CHARTS_SETTINGS_LABEL"
+      description="COM_WEATHEROPENDATA_CHARTS_SETTINGS_DESCRIPTION">
+    <field
+        name="datapath"
+        type="text"
+        label="COM_WEATHEROPENDATA_CHARTS_SETTINGS_DATAPATH_LABEL"
+        description="COM_WEATHEROPENDATA_CHARTS_SETTINGS_DATAPATH_DESCRIPTION"
+        maxlength="100"
+        required="true"
+        default="./media/com_weatheropendata/chart/json"
+    />
+    <field
+        name="themeVersion"
+        type="text"
+        maxlength="5"
+        default="1"
+        class="inputbox validate-numeric"
+        data-validation-text="Numerische Eingabe erforderlich."
+        pattern="^[0-9]+$"
+        label="COM_WEATHEROPENDATA_CHARTS_SETTINGS_THEMEVERSION_LABEL"
+        description="COM_WEATHEROPENDATA_CHARTS_SETTINGS_THEMEVERSION_DESCRIPTION"/>
+  </fieldset>
+  <fieldset name="insertcontent"
+            label="COM_WEATHEROPENDATA_INSERTCONTENT_SETTINGS_LABEL"
+            description="COM_WEATHEROPENDATA_INSERTCONTENT_SETTINGS_DESCRIPTION">
+    <field
+        name="insertcontentDataPath"
+        type="text"
+        size="50"
+        default="../Daten"
+        label="COM_WEATHEROPENDATA_INSERTCONTENT_SETTINGS_DIR_LABEL"
+        description="COM_WEATHEROPENDATA_INSERTCONTENT_SETTINGS_DIR_DESCRIPTION"/>
+  </fieldset>
 </config>

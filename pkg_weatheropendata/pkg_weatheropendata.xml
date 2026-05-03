@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="package" method="upgrade">
-  <name>Wetter Opendata Datenzugriff Paket</name>
+  <name>Wetter Opendata Paket</name>
   <author>Alexander Hartmann</author>
   <authorUrl>https://www.github.com/ahartman30</authorUrl>
-  <copyright>(C) 2026 Alexander Hartmann</copyright>
+  <copyright>(C) @creation.year@ Alexander Hartmann</copyright>
   <license>GNU GPL v3 or later</license>
   <changelogurl>https://joomlaupdate.ahartman.de/pkg_weatheropendata/changelog.xml</changelogurl>
-  <creationDate>@creationdate@</creationDate>
+  <creationDate>@creation.date@</creationDate>
   <packagename>weatheropendata</packagename>
   <version>@version@</version>
   <description><![CDATA[
-<h3>Wetter Opendata Datenzugriff</h3>
+<h3>Wetter Opendata</h3>
 Das Paket besteht aus den folgenden Erweiterungen:
 <ul>
-  <li>Komponente zur Konfiguration der Opendata Produkte, die eingebunden werden sollen.</li>
-  <li>Content Plugin zum Einbinden der Opendata Inhalte in einen Beitrag.</li>
-  <li>Console Plugin zum Laden der Produkte in den Cache über die Kommandozeile und Cron.</li>
-  <li>Plugin zum Einfügen von lokal verfügbaren Text und HTML Dateien in einen Beitrag.</li>
+  <li>Komponente zur Konfiguration von Opendata Produkten und Wetter Charts, die in Beiträge eingebunden werden sollen.</li>
+  <li>Content Plugin zum Einbinden der Inhalte in einen Beitrag.</li>
+  <li>Console Plugin zum Laden der Produkte in den Cache über die Kommandozeile und die Cron.</li>
 </ul>
 ]]></description>
   <blockChildUninstall>true</blockChildUninstall>
@@ -25,7 +24,6 @@ Das Paket besteht aus den folgenden Erweiterungen:
     <file type="component" id="com_weatheropendata">com_weatheropendata.zip</file>
     <file type="plugin" group="content" id="weatheropendata">plg_weatheropendata_content.zip</file>
     <file type="plugin" group="console" id="weatheropendata">plg_weatheropendata_console.zip</file>
-    <file type="plugin" group="content" id="weatherinserttext">plg_weatherinserttext.zip</file>
   </files>
 
   <scriptfile>script.weatheropendata.php</scriptfile>

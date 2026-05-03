@@ -52,6 +52,13 @@ class DisplayController extends BaseController
       $this->setRedirect(Route::_('index.php?option=com_weatheropendata&view=products', false));
       return false;
     }
+    if ($view === 'chart' && $layout === 'edit' && !$this->checkEditId('com_weatheropendata.edit.chart', $id)) {
+      if (!\count($this->app->getMessageQueue())) {
+        $this->setMessage(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 'error');
+      }
+      $this->setRedirect(Route::_('index.php?option=com_weatheropendata&view=charts', false));
+      return false;
+    }
 
     return parent::display();
   }
