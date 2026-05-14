@@ -9,6 +9,7 @@ defined('_JEXEC') || die();
 use Joomla\CMS\Application\AdministratorApplication;
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Installer\InstallerAdapter;
 use Joomla\CMS\Installer\InstallerScriptInterface;
 use Joomla\CMS\Language\Text;
@@ -32,11 +33,13 @@ return new class () implements ServiceProviderInterface {
       ) implements InstallerScriptInterface {
         private AdministratorApplication $app;
         private DatabaseInterface $db;
+        private Installer $installer;
 
         public function __construct(AdministratorApplication $app, DatabaseInterface $db)
         {
           $this->app = $app;
           $this->db  = $db;
+          $this->installer = Installer::getInstance();
         }
 
         public function install(InstallerAdapter $adapter): bool
@@ -51,7 +54,8 @@ return new class () implements ServiceProviderInterface {
             $this->deleteOldFiles();
             $this->initNewParams();
             $this->migrateCommands();
-            $this->app->enqueueMessage(Text::_('COM_WEATHEROPENDATA_UPDATE_INSERTTEXT_PLUGIN'), CMSApplicationInterface::MSG_INFO);
+            $this->prepareObsoleteInsertTextPluginForUninstall();
+            $this->prepareObsoleteChartPackageForUninstall();
           }
           $this->clearMediaContentFolder();
           return true;
@@ -121,7 +125,6 @@ return new class () implements ServiceProviderInterface {
             $oldComponentParams = ComponentHelper::getParams('com_weatherchart');
             $thisComponentParams['params']['datapath'] = $oldComponentParams->get('datapath');
             $thisComponentParams['params']['themeVersion'] = $oldComponentParams->get('themeVersion');
-            $this->app->enqueueMessage(Text::_('COM_WEATHEROPENDATA_UPDATE_CHARTS_COMPONENT'), CMSApplicationInterface::MSG_INFO);
             $toStore = true;
 
             $oldHighchartsFolder = Path::clean(JPATH_ROOT . '/media/weatherchart/Highcharts/');
@@ -168,6 +171,44 @@ return new class () implements ServiceProviderInterface {
             $this->db->setQuery($query);
             $this->db->execute();
           }
+        }
+
+        private function prepareObsoleteInsertTextPluginForUninstall(): void
+        {
+          // Get plugin id.
+          $query = $this->db->getQuery(true)
+            ->select($this->db->quoteName('extension_id'))
+            ->from($this->db->quoteName('#__extensions'))
+            ->where($this->db->quoteName('type') . ' = ' . $this->db->quote('plugin'))
+            ->where($this->db->quoteName('folder') . ' = ' . $this->db->quote('content'))
+            ->where($this->db->quoteName('element') . ' = ' . $this->db->quote('weatherinserttext'));
+          $this->db->setQuery($query);
+          $extensionId = (int) $this->db->loadResult();
+          if ($extensionId <= 0) return;
+
+          // Detach the plugin from the package.
+          $query = $this->db->getQuery(true)
+            ->update($this->db->quoteName('#__extensions'))
+            ->set($this->db->quoteName('package_id') . ' = 0')
+            ->where($this->db->quoteName('extension_id') . ' = :extensionId')
+            ->bind(':extensionId', $extensionId);
+          $this->db->setQuery($query);
+          $this->db->execute();
+
+          $this->app->enqueueMessage(Text::sprintf('COM_WEATHEROPENDATA_UPDATE_INSERTTEXT_PLUGIN', $extensionId), CMSApplicationInterface::MSG_INFO);
+        }
+
+        private function prepareObsoleteChartPackageForUninstall() {
+          // Get package id.
+          $query = $this->db->getQuery(true)
+            ->select($this->db->quoteName('extension_id'))
+            ->from($this->db->quoteName('#__extensions'))
+            ->where($this->db->quoteName('type') . ' = ' . $this->db->quote('package'))
+            ->where($this->db->quoteName('element') . ' = ' . $this->db->quote('pkg_weatherchart'));
+          $this->db->setQuery($query);
+          $extensionId = (int) $this->db->loadResult();
+          if ($extensionId <= 0) return;
+          $this->app->enqueueMessage(Text::sprintf('COM_WEATHEROPENDATA_UPDATE_CHARTS_COMPONENT', $extensionId), CMSApplicationInterface::MSG_INFO);
         }
 
         private function clearMediaContentFolder(): void
