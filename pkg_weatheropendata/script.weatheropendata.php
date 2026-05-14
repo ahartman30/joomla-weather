@@ -48,6 +48,7 @@ return new class () implements ServiceProviderInterface {
         {
           if (version_compare($this->getCurrentInstalledVersion(), '1.2.0', '<')) {
             $this->deleteOldMediaFolder();
+            $this->deleteOldFiles();
             $this->initNewParams();
             $this->migrateCommands();
             $this->app->enqueueMessage(Text::_('COM_WEATHEROPENDATA_UPDATE_INSERTTEXT_PLUGIN'), CMSApplicationInterface::MSG_INFO);
@@ -84,8 +85,13 @@ return new class () implements ServiceProviderInterface {
           $oldMediaFolder = Path::clean(JPATH_ROOT . '/media/weatheropendata/');
           if (Folder::exists($oldMediaFolder)) {
             Folder::delete($oldMediaFolder);
-            $this->app->enqueueMessage(Text::_('COM_WEATHEROPENDATA_UPDATE_MEDIAFOLDER'), CMSApplicationInterface::MSG_NOTICE);
+            $this->app->enqueueMessage(Text::_('COM_WEATHEROPENDATA_UPDATE_MEDIAFOLDER'), CMSApplicationInterface::MSG_INFO);
           }
+        }
+
+        private function deleteOldFiles() {
+          $fileToDelete = JPATH_PLUGINS . '/content/weatheropendata/src/Extension/OpenData.php';
+          if (File::exists($fileToDelete)) File::delete($fileToDelete);
         }
 
         private function initNewParams(): void {

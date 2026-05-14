@@ -9,6 +9,7 @@ namespace Weather\Plugin\Content\OpenData\Extension\Processor\Strategies;
 defined('_JEXEC') or die('Restricted access');
 
 use Exception;
+use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Path;
 use Weather\Plugin\Content\OpenData\Extension\DataLoader;
 use Weather\Plugin\Content\OpenData\Extension\Processor\OpenDataProcessorException;
@@ -73,7 +74,8 @@ class ProductProcessor implements OpenDataProcessorStrategy {
     else {
       throw new OpenDataProcessorException("Unknown product-command: " . $command);
     }
-    if ($result == null || $command == self::CMD_PRODUCT_LOAD) return '';
+    if ($result == null) throw new OpenDataProcessorException(sprintf('Product "%s" does not exist.', $product));
+    if ($command == self::CMD_PRODUCT_LOAD) return '';
 
     // Create content
     $file        = $result[1];
