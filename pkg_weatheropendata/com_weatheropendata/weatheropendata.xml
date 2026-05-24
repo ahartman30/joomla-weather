@@ -36,6 +36,14 @@
     <menu>com_weatheropendata</menu>
     <submenu>
       <menu
+          link="option=com_weatheropendata&amp;view=manual"
+          view="manual"
+          img="class:manual"
+          alt="WeatherOpendata/Manual"
+      >
+        com_weatheropendata_manual
+      </menu>
+      <menu
           link="option=com_weatheropendata&amp;view=products"
           view="products"
           img="class:products"

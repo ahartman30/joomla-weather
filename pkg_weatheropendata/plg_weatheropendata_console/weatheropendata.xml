@@ -8,14 +8,8 @@
   <creationDate>@creation.date@</creationDate>
   <version>@version@</version>
   <description><![CDATA[
-Plugin zum Laden der Daten in den Cache über das Joomla CLI.
-
-Laden des gesamten Cache:
-php ./cli/joomla.php weatheropendata:loadcache
-
-Laden und Überschreiben eines einzelnen Produkts:
-php ./cli/joomla.php weatheropendata:fetchProduct
-php ./cli/joomla.php weatheropendata:fetchProduct --product=<productname>
+Plugin zum Laden der Daten in den Cache über das Joomla CLI.<br/>
+Siehe <a href="index.php?option=com_weatheropendata&view=manual">Anleitung</a>.
 ]]></description>
 
   <namespace path="src">Weather\Plugin\Console\OpenData</namespace>

@@ -26,7 +26,7 @@ class DisplayController extends BaseController
    * @var    string
    * @since 1.1.0
    */
-  protected $default_view = 'products';
+  protected $default_view = 'manual';
 
   /**
    * Method to display a view.
@@ -40,7 +40,7 @@ class DisplayController extends BaseController
    */
   public function display($cachable = false, $urlparams = [])
   {
-    $view   = $this->input->get('view', 'products');
+    $view   = $this->input->get('view', $this->default_view);
     $layout = $this->input->get('layout', 'default');
     $id     = $this->input->getInt('id');
 
