@@ -7,15 +7,12 @@ Reference Site: https://www.heusenstamm-wetter.de
 
 ## Weather Opendata Package
 
-Contains a component and plugins to fetch text/image weather data from [DWD Opendata](https://www.dwd.de/opendata "DWD Opendata") and other sources for embedding into joomla content.
+Contains a component and plugins to 
+* fetch text/image weather data from [DWD Opendata](https://www.dwd.de/opendata "DWD Opendata") and other sources for embedding into joomla content,
+* embed a chart into content using [Highcharts](https://www.highcharts.com/ "Highcharts"),
+* embed text and html data in an article.
 
 Installation: https://joomlaupdate.ahartman.de/pkg_weatheropendata/update.xml
-
-## Weather Chart Package
-
-Component and plugin to embed a chart into content using [Highcharts](https://www.highcharts.com/ "Highcharts").
-
-Installation: https://joomlaupdate.ahartman.de/pkg_weatherchart/update.xml
 
 ## Weather Map Plugin
 
