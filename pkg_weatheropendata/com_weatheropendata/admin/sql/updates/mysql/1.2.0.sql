@@ -46,4 +46,4 @@ FROM `#__weatherchart_templates`;
 -- Insert default data, if table is still empty.
 INSERT INTO `#__weatheropendata_charts` (`name`, `file`, `timestamp`, `template`)
 SELECT 'RueckblickVorhersage_OBS_FC', 'rueckvor_obs_fc', 1524659556, '@SAMPLE_CHART@'
-WHERE NOT EXISTS (SELECT * FROM `joomla_weatheropendata_charts`)
+WHERE NOT EXISTS (SELECT * FROM `#__weatheropendata_charts`)
