@@ -78,15 +78,14 @@ class ProductProcessor implements OpenDataProcessorStrategy {
     if ($command == self::CMD_PRODUCT_LOAD) return '';
 
     // Create content
-    $file        = $result[1];
+    $file = $result[1];
     $productType = $result[0];
-    $content     = null;
+    $content = null;
     if ($this->dataLoader->isImage($productType)) {
-      $file = Path::clean(substr($file, strlen(JPATH_BASE) + 1), '/');
-      $file = Path::clean($file, '/');
+      $fileUrl = Path::clean(substr($file, strlen(JPATH_BASE) + 1), '/') . '?' . filemtime($file);
       if (!$size) $size = "100";
-      if ($imageText) $content = '<a href="' . $file . '" class="fancybox" rel="' . $imageRel . '" title="' . $imageText . '">'; // enable box
-      $content .= '<img width="' . $size . '%" src="' . $file . '"/>';
+      if ($imageText) $content = '<a href="' . $fileUrl . '" class="fancybox" rel="' . $imageRel . '" title="' . $imageText . '">'; // enable box
+      $content .= '<img width="' . $size . '%" src="' . $fileUrl . '"/>';
       if ($imageText) $content .= '</a>';
     } else {
       $content = file_get_contents($file);

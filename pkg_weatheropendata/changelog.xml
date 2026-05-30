@@ -1,0 +1,126 @@
+<changelogs>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.2.2</version>
+        <security></security>
+        <fix>
+            <item>Removed fixed table prefix on SQL files breaking update.</item>
+        </fix>
+        <language></language>
+        <addition></addition>
+        <change>
+            <item>Eingebundene Produktbilder erhalten eine versionierte URL, mit Timestamp angefuegt.</item>
+        </change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.2.1</version>
+        <security></security>
+        <fix></fix>
+        <language></language>
+        <addition></addition>
+        <change>
+          <item>Anleitung von Plugins nach Komponente unter einen neuen Menupunkt verschoben.</item>
+        </change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.2.0</version>
+        <security></security>
+        <fix></fix>
+        <language></language>
+        <addition></addition>
+        <change>
+          <item>Integration Wetter Chart Komponente in Opendata Paket.</item>
+          <item>Migration Produkte Tabelle auf aktuelles Tabellenformat.</item>
+          <item>Neue Befehlssyntax fuer alle Befehle, um Inhalte einzufuegen.</item>
+          <item>Wetter Text einfuegen Plugin integiert.</item>
+          <item>Produkte nach ID sortieren entfernt.</item>
+        </change>
+        <remove></remove>
+        <note>
+          <item>Bisheriges Wetter Charts Paket kann vollstaendig deinstalliert werden. Alle Daten werden beim Update uebernommen,</item>
+          <item>Wetter Text einfuegen Plugin muss per Hand deinstalliert werden.</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.1.0</version>
+        <security></security>
+        <fix></fix>
+        <language></language>
+        <addition></addition>
+        <change>
+          <item>Migration Opendata Komponente nach Joomla 5.</item>
+        </change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.0.6</version>
+        <security></security>
+        <fix>
+				  <item>Fehlermeldung im DataLoader verbessert. Ausgabe Produktname bei FTP Fehler.</item>
+				</fix>
+        <language></language>
+        <addition></addition>
+        <change></change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.0.5</version>
+        <security></security>
+        <fix>
+				  <item>PHP Warnungen im DataLoader behoben: Passing null to parameter of type string is deprecated.</item>
+				</fix>
+        <language></language>
+        <addition></addition>
+        <change></change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.0.4</version>
+        <security></security>
+        <fix>
+				  <item>PHP Warnungen im DataLoader behoben: Passing null to parameter of type string is deprecated.</item>
+				</fix>
+        <language></language>
+        <addition></addition>
+        <change></change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
+        <version>1.0.3</version>
+        <security></security>
+        <fix>
+				  <item>Kurzfristvorhersage SXDL31: Ausgabedatum und Format korrigiert.</item>
+					<item>Kurzfristvorhersage SXDL31: Tooltip GWL korrigiert.</item>
+				</fix>
+        <language></language>
+        <addition>
+				  <item>CLI: Neues Command zum Abholen eines einzelnen Produkts.</item>
+				</addition>
+        <change></change>
+        <remove></remove>
+        <note></note>
+    </changelog>
+</changelogs>

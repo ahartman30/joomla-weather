@@ -54,9 +54,9 @@ return new class () implements ServiceProviderInterface {
             $this->deleteOldFiles();
             $this->initNewParams();
             $this->migrateCommands();
-            $this->prepareObsoleteInsertTextPluginForUninstall();
-            $this->prepareObsoleteChartPackageForUninstall();
           }
+          $this->prepareObsoleteInsertTextPluginForUninstall();
+          $this->prepareObsoleteChartPackageForUninstall();
           $this->clearMediaContentFolder();
           return true;
         }
