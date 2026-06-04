@@ -92,11 +92,17 @@
             name="opendata_passive"
             default="1"/>
         <field
+            name="productImageUrlTimestamp"
+            default="0"/>
+        <field
             name="datapath"
             default="./media/com_weatheropendata/chart/json"/>
         <field
             name="themeVersion"
             default="1"/>
+        <field
+            name="chartUrlTimestamp"
+            default="0"/>
           <field
               name="insertcontentDataPath"
               default="../Daten"/>

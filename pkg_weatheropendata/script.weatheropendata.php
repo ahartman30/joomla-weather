@@ -52,9 +52,9 @@ return new class () implements ServiceProviderInterface {
           if (version_compare($this->getCurrentInstalledVersion(), '1.2.0', '<')) {
             $this->deleteOldMediaFolder();
             $this->deleteOldFiles();
-            $this->initNewParams();
             $this->migrateCommands();
           }
+          $this->initNewParams();
           $this->prepareObsoleteInsertTextPluginForUninstall();
           $this->prepareObsoleteChartPackageForUninstall();
           $this->clearMediaContentFolder();
@@ -117,6 +117,14 @@ return new class () implements ServiceProviderInterface {
           }
           if ($thisComponent->getParams()->get('insertcontentDataPath') === null) {
             $thisComponentParams['params']['insertcontentDataPath'] = '../Daten';
+            $toStore = true;
+          }
+          if ($thisComponent->getParams()->get('productImageUrlTimestamp') === null) {
+            $thisComponentParams['params']['productImageUrlTimestamp'] = '1';
+            $toStore = true;
+          }
+          if ($thisComponent->getParams()->get('chartUrlTimestamp') === null) {
+            $thisComponentParams['params']['chartUrlTimestamp'] = '1';
             $toStore = true;
           }
 

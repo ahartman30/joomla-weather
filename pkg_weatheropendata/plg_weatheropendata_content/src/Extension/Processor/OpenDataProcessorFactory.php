@@ -8,6 +8,8 @@ namespace Weather\Plugin\Content\OpenData\Extension\Processor;
 
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\Database\DatabaseInterface;
+use Joomla\Registry\Registry;
+use Weather\Plugin\Content\OpenData\Extension\DataLoader;
 use Weather\Plugin\Content\OpenData\Extension\Processor\Strategies\ChartProcessor;
 use Weather\Plugin\Content\OpenData\Extension\Processor\Strategies\InsertContentProcessor;
 use Weather\Plugin\Content\OpenData\Extension\Processor\Strategies\ProductProcessor;
@@ -24,16 +26,22 @@ class OpenDataProcessorFactory {
   private array $processors = [];
   private DatabaseInterface $db;
   private CMSApplicationInterface $app;
+  private Registry $componentParams;
 
   /**
    * Constructor.
    *
    * @param DatabaseInterface $db
    * @param CMSApplicationInterface $app
+   * @param Registry $componentParams The component parameters.
    */
-  public function __construct(DatabaseInterface $db, CMSApplicationInterface $app) {
+  public function __construct(
+    DatabaseInterface $db,
+    CMSApplicationInterface $app,
+    Registry $componentParams) {
     $this->db = $db;
     $this->app = $app;
+    $this->componentParams = $componentParams;
   }
 
   /**
@@ -54,11 +62,24 @@ class OpenDataProcessorFactory {
     }
 
     if ($command === ProductProcessor::CMD) {
-      $openDataProcessor = new ProductProcessor();
+      $dataLoader = new DataLoader();
+      $addImageUrlTimestamp = boolval($this->componentParams->get('productImageUrlTimestamp') ?? true);
+      $openDataProcessor = new ProductProcessor($dataLoader, $addImageUrlTimestamp);
     } else if ($command === ChartProcessor::CMD) {
-      $openDataProcessor = new ChartProcessor($this->db, $this->app);
+      $jsonDataDir = $this->componentParams->get('datapath') ?? '';
+      $themeVersion = $this->componentParams->get('themeVersion') ?? '1';
+      $mediaContentPath = 'media/com_weatheropendata/content';
+      $addUrlTimestamp = boolval($this->componentParams->get('chartUrlTimestamp') ?? true);
+      $openDataProcessor = new ChartProcessor(
+        $this->db,
+        $this->app,
+        $jsonDataDir,
+        $mediaContentPath,
+        $themeVersion,
+        $addUrlTimestamp);
     } else if ($command === InsertContentProcessor::CMD) {
-      $openDataProcessor = new InsertContentProcessor();
+      $dataPath = $this->componentParams->get('insertcontentDataPath') ?? '';
+      $openDataProcessor = new InsertContentProcessor($dataPath);
     } else {
       throw new openDataProcessorException(sprintf('Command "%s" does not exist.', $command));
     }

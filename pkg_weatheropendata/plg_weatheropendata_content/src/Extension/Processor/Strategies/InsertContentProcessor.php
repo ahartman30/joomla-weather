@@ -9,7 +9,6 @@ namespace Weather\Plugin\Content\OpenData\Extension\Processor\Strategies;
 defined('_JEXEC') or die('Restricted access');
 
 use Exception;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\Filesystem\File;
 use Weather\Plugin\Content\OpenData\Extension\OpenDataPlugin;
 use Weather\Plugin\Content\OpenData\Extension\Processor\OpenDataProcessorException;
@@ -28,10 +27,11 @@ class InsertContentProcessor implements OpenDataProcessorStrategy {
 
   /**
    * Constructor.
+   *
+   * @param string $dataPath Relatvie path to the data folder.
    */
-  public function __construct() {
-    $this->dataPath = ComponentHelper::getParams('com_weatheropendata')->get('insertcontentDataPath') ?? '';
-    $this->dataPath = OpenDataPlugin::resolveCleanAbsolutePath($this->dataPath);
+  public function __construct($dataPath) {
+    $this->dataPath = OpenDataPlugin::resolveCleanAbsolutePath($dataPath);
   }
 
   public function execute(array $parameters, ?string $subCommand): string {

@@ -10,6 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 
 use Exception;
 use Joomla\CMS\Application\CMSApplicationInterface;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Database\DatabaseAwareTrait;
@@ -93,7 +94,10 @@ class OpenDataPlugin extends CMSPlugin implements SubscriberInterface {
       $this->error(sprintf('Error on regex %s: %s', htmlspecialchars(self::CMD_PATTERN), preg_last_error_msg()));
       return;
     }
-    $this->processorFactory = new OpenDataProcessorFactory($this->getDatabase(), $this->getApplication());
+    $this->processorFactory = new OpenDataProcessorFactory(
+      $this->getDatabase(),
+      $this->getApplication(),
+      ComponentHelper::getParams('com_weatheropendata'));
     try {
       $text = $this->process($text, $matches, $countMatches);
     } catch (Exception $e) {

@@ -2,6 +2,23 @@
     <changelog>
         <element>weatheropendata</element>
         <type>package</type>
+        <version>1.2.3</version>
+        <security></security>
+        <fix>
+        </fix>
+        <language></language>
+        <addition>
+            <item>Versionierte URLs für Produktbilder und Charts in den Einstellungen abschaltbar. Zeitstempel in lesbarer Form.</item>
+        </addition>
+        <change>
+        </change>
+        <remove></remove>
+        <note>
+        </note>
+    </changelog>
+    <changelog>
+        <element>weatheropendata</element>
+        <type>package</type>
         <version>1.2.2</version>
         <security></security>
         <fix>

@@ -6,12 +6,11 @@
 
 namespace Weather\Plugin\Content\OpenData\Extension\Processor\Strategies;
 
+use DateTimeZone;
 use Exception;
 use Joomla\CMS\Application\CMSApplicationInterface;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Database\DatabaseInterface;
-use Joomla\Filesystem\Path;
 use Weather\Plugin\Content\OpenData\Extension\OpenDataPlugin;
 use Weather\Plugin\Content\OpenData\Extension\Processor\OpenDataProcessorException;
 use Weather\Plugin\Content\OpenData\Extension\Processor\OpenDataProcessorStrategy;
@@ -27,30 +26,40 @@ class ChartProcessor implements OpenDataProcessorStrategy {
 
   public const string CMD = 'chart';
 
-  const string MEDIA_DIR = 'media/com_weatheropendata';
-
   private string $dataDir;
-  private string $mediaDir;
   private string $cacheDir;
   private string $cacheDirUriLocation;
   private string $themeVersion;
+  private bool $addUrlTimestamp;
   private DatabaseInterface $db;
   private CMSApplicationInterface $app;
 
-
   /**
    * Constructor.
+   *
+   * @param DatabaseInterface $db
+   * @param CMSApplicationInterface $app
+   * @param string $relativeJsonDataDir Path to the JSON data files folder from the component settings.
+   * @param string $relativeMediaContentDir Path to the media content folder, relative to the site root.
+   * @param string $themeVersion The theme version from the component settings.
+   * @param bool $addUrlTimestamp If true, the chart url will be suffixed with a timestamp.
    */
-  public function __construct(DatabaseInterface $db, CMSApplicationInterface $app)
+  public function __construct(
+    DatabaseInterface       $db,
+    CMSApplicationInterface $app,
+    string                  $relativeJsonDataDir,
+    string                  $relativeMediaContentPath,
+    string                  $themeVersion,
+    bool                    $addUrlTimestamp)
   {
     $this->db = $db;
     $this->app = $app;
-    $this->dataDir = ComponentHelper::getParams('com_weatheropendata')->get('datapath') ?? '';
-    $this->themeVersion = ComponentHelper::getParams('com_weatheropendata')->get('themeVersion') ?? '1';
-    $this->dataDir = OpenDataPlugin::resolveCleanAbsolutePath($this->dataDir);
-    $this->mediaDir = self::MEDIA_DIR;
-    $this->cacheDirUriLocation = $this->mediaDir . "/content";
-    $this->cacheDir = Path::clean(JPATH_BASE . "/" . self::MEDIA_DIR . "/content");
+    $this->dataDir = $relativeJsonDataDir ?? '';
+    $this->dataDir = OpenDataPlugin::resolveCleanAbsolutePath($this->dataDir);;
+    $this->themeVersion = $themeVersion ?? '1';
+    $this->cacheDirUriLocation = $relativeMediaContentPath;
+    $this->cacheDir = OpenDataPlugin::resolveCleanAbsolutePath($relativeMediaContentPath);
+    $this->addUrlTimestamp = $addUrlTimestamp ?? true;
     $this->initHighcharts();
   }
 
@@ -89,17 +98,23 @@ class ChartProcessor implements OpenDataProcessorStrategy {
     if (!is_readable($dataFile)) throw new OpenDataProcessorException(sprintf('Chart data file "%s" for template "%s" is not readable.', $dataFile, $templateName));
     $containerId = "chart_" . $templateName;
     $cacheFile = $this->getCacheFile($containerId);
-    $chartTimestamp = $chartData['timestamp'];
+    $templateTimestamp = $chartData['timestamp'];
     $chartTemplate = $chartData['template'];
-    if (!$this->isCacheFileUptodate($cacheFile, $chartTimestamp, $dataFile)) {
+    if (!$this->isCacheFileUptodate($cacheFile, $templateTimestamp, $dataFile)) {
       $chart = $this->createChart($chartTemplate, $dataFile, $containerId);
       $this->updateCacheFile($cacheFile, $chart);
     }
     $cacheFileName = basename($cacheFile);
     $cachFileUri = $this->cacheDirUriLocation . "/" . $cacheFileName;
+
     /** @var WebAssetManager $webAssetManager */
     $webAssetManager = $this->app->getDocument()->getWebAssetManager();
-    $webAssetManager->registerAndUseScript('com_weatheropendata.chart_' . $containerId, $cachFileUri, ['version' => $chartTimestamp]);
+    if ($this->addUrlTimestamp) {
+      $cacheFileTimestamp = new \DateTime('@' . filemtime($cacheFile), new DateTimeZone('UTC'))->format(\DateTime::ATOM);
+      $webAssetManager->registerAndUseScript('com_weatheropendata.chart_' . $containerId, $cachFileUri, ['version' => 'lastmodified=' . $cacheFileTimestamp]);
+    } else {
+      $webAssetManager->registerAndUseScript('com_weatheropendata.chart_' . $containerId, $cachFileUri, ['version' => '']);
+    }
     return $this->getContainerHtml($containerId, $width, $height);
   }
 

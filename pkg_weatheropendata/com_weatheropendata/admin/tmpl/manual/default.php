@@ -36,7 +36,7 @@ Bsp.:<br/>
 <p></p>
 <h1>2. Charts</h1>
 <pre>
-{opendata:chart &lt;Name Chart&gt;;&lt;Breite&gt;;&lt;Höhe&gt}
+{opendata:chart &lt;Name Chart&gt;;&lt;Höhe>;&lt;Breite&gt;}
 </pre>
 <h3>Beispiel:</h3>
 <pre>
@@ -70,3 +70,29 @@ php ./cli/joomla.php weatheropendata:fetchProduct
 php ./cli/joomla.php weatheropendata:fetchProduct --product=&lt;productname&gt;
 php ./cli/joomla.php weatheropendata:loadcache --product=&lt;productname&gt;
 </pre>
+
+<p></p>
+<h1>Javascript Abhängigkeiten</h1>
+<ul>
+    <li>Die Highcharts Bibliothek ist extern und muss manuell hinterlegt werden.
+        Lizenzbedingungen finden sich auf der <a href="https://www.highcharts.com/license">Highcharts Webseite</a></li>
+</ul>
+
+<p></p>
+<h1>Browser Cache</h1>
+Das Plugin unterstützt für alle dynamischen Inhalte eine versionierte URL, indem ein Zeitstempel als Location Identifier der URL angefügt wird.
+Alternativ oder zusätzlich kann das Caching des content-Verzeichnisses, mit den dynamischen Inhalten, durch den Browser über den HTTP Header abgeschaltet werden.
+Der Zeitstempel kann in den Einstellungen auch abgeschaltet werden, wenn das Browser Caching über den HTTP Header abgeschaltet wird.
+<h2>Aktivierter Browser Cache mit Abschalten des content-Verzeichnisses</h2>
+<pre>
+    # Browser Cache
+    ExpiresActive on
+    ExpiresDefault "access plus 6 hours"
+
+    # Revalidate für Dynamic Content erzwingen
+    <LocationMatch ^/media/com_weatheropendata/content>
+        ExpiresActive off
+        Header set Cache-Control "no-cache"
+    </LocationMatch>
+</pre>
+Erforderlich dafür sind die Apache Module Expires und Header.

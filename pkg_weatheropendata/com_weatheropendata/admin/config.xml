@@ -36,6 +36,16 @@
       <option value="0">JDISABLED</option>
       <option value="1">JENABLED</option>
     </field>
+    <field
+        name="productImageUrlTimestamp"
+        type="radio"
+        layout="joomla.form.field.radio.switcher"
+        label="COM_WEATHEROPENDATA_SETTINGS_IMAGEURLTIMESTAMP_LABEL"
+        description="COM_WEATHEROPENDATA_SETTINGS_IMAGEURLTIMESTAMP_DESCRIPTION"
+        default="1">
+      <option value="0">JDISABLED</option>
+      <option value="1">JENABLED</option>
+    </field>
   </fieldset>
   <fieldset
       name="charts"
@@ -60,6 +70,16 @@
         pattern="^[0-9]+$"
         label="COM_WEATHEROPENDATA_CHARTS_SETTINGS_THEMEVERSION_LABEL"
         description="COM_WEATHEROPENDATA_CHARTS_SETTINGS_THEMEVERSION_DESCRIPTION"/>
+    <field
+        name="chartUrlTimestamp"
+        type="radio"
+        layout="joomla.form.field.radio.switcher"
+        label="COM_WEATHEROPENDATA_CHARTS_SETTINGS_URLTIMESTAMP_LABEL"
+        description="COM_WEATHEROPENDATA_CHARTS_SETTINGS_URLTIMESTAMP_DESCRIPTION"
+        default="1">
+      <option value="0">JDISABLED</option>
+      <option value="1">JENABLED</option>
+    </field>
   </fieldset>
   <fieldset name="insertcontent"
             label="COM_WEATHEROPENDATA_INSERTCONTENT_SETTINGS_LABEL"

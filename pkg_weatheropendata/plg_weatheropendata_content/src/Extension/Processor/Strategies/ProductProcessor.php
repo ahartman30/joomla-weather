@@ -8,8 +8,8 @@ namespace Weather\Plugin\Content\OpenData\Extension\Processor\Strategies;
 
 defined('_JEXEC') or die('Restricted access');
 
+use DateTimeZone;
 use Exception;
-use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Path;
 use Weather\Plugin\Content\OpenData\Extension\DataLoader;
 use Weather\Plugin\Content\OpenData\Extension\Processor\OpenDataProcessorException;
@@ -30,15 +30,20 @@ class ProductProcessor implements OpenDataProcessorStrategy {
 
   private DataLoader $dataLoader;
   private bool $isDataLoaderConnected;
+  private bool $addImageUrlTimestamp;
 
 
   /**
    * Constructor.
+   *
+   * @param DataLoader $dataLoader The opendata data loader.
+   * @param bool $addImageUrlTimestamp If true, the image url will be suffixed with a timestamp.
    */
-  public function __construct()
+  public function __construct(DataLoader $dataLoader, bool $addImageUrlTimestamp)
   {
-    $this->dataLoader            = new DataLoader();
+    $this->dataLoader = $dataLoader;
     $this->isDataLoaderConnected = false;
+    $this->addImageUrlTimestamp = $addImageUrlTimestamp;
   }
 
   public function execute(array $parameters, ?string $subCommand): string {
@@ -82,7 +87,9 @@ class ProductProcessor implements OpenDataProcessorStrategy {
     $productType = $result[0];
     $content = null;
     if ($this->dataLoader->isImage($productType)) {
-      $fileUrl = Path::clean(substr($file, strlen(JPATH_BASE) + 1), '/') . '?' . filemtime($file);
+      $fileUrl = Path::clean(substr($file, strlen(JPATH_BASE) + 1), '/');
+      $timestamp = new \DateTime('@' . filemtime($file), new DateTimeZone('UTC'));
+      if ($this->addImageUrlTimestamp) $fileUrl .= '?lastmodified=' . $timestamp->format(\DateTime::ATOM);
       if (!$size) $size = "100";
       if ($imageText) $content = '<a href="' . $fileUrl . '" class="fancybox" rel="' . $imageRel . '" title="' . $imageText . '">'; // enable box
       $content .= '<img width="' . $size . '%" src="' . $fileUrl . '"/>';
